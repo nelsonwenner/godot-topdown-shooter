@@ -9,9 +9,7 @@ extents = Vector2( 31.9595, 6.125 )
 [node name="weapon" type="Area2D"]
 scale = Vector2( 1, 0.6 )
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
+bullet_color = Color( 0.866667, 0.866667, 0.866667, 1 )
 
 [node name="sprite" type="Sprite" parent="."]
 scale = Vector2( 1, 0.2 )
@@ -20,4 +18,27 @@ texture = ExtResource( 1 )
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 0.0833332 )
 shape = SubResource( 1 )
+
+[node name="shoot_weapon_time" type="Timer" parent="."]
+
+[node name="reload_weapon_time" type="Timer" parent="."]
+
+[node name="bullet_container" type="Node" parent="."]
+
+[node name="weapon_position" type="Position2D" parent="."]
+position = Vector2( 32.3745, 0 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="munition" type="Label" parent="CanvasLayer"]
+margin_left = 1745.0
+margin_top = 1011.0
+margin_right = 1782.0
+margin_bottom = 1025.0
+text = "12/12"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="body_entered" from="." to="." method="_on_weapon_body_entered"]
+[connection signal="timeout" from="shoot_weapon_time" to="." method="_on_shoot_weapon_time_timeout"]
+[connection signal="timeout" from="reload_weapon_time" to="." method="_on_reload_weapon_time_timeout"]
