@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var bullet = preload("res://src/scenes/bullets/base_bullet.tscn")
+onready var bullet = preload("res://src/scenes/bullets/BaseBullet.tscn")
 export var bullet_color:Color
 
 var BULLET_SIZE = 1
@@ -27,7 +27,7 @@ var player_hand
 var player
 
 
-func _ini(type,shoot_weapon_time,reload_weapon_time,bullet_quantity,bullet_speed,bullet_size,shoot_range,knockback,max_slot,damage):
+func _ini(type,shoot_weapon_time,reload_weapon_time,bullet_quantity,bullet_speed,bullet_size,shoot_range,knockback,max_slot,damage,stray):
 	SHOOT_WEAPON_TIME = shoot_weapon_time
 	RELOAD_WEAPON_TIME = reload_weapon_time
 	BULLETS = bullet_quantity
@@ -36,20 +36,20 @@ func _ini(type,shoot_weapon_time,reload_weapon_time,bullet_quantity,bullet_speed
 	SHOOT_RAGE = shoot_range
 	KNOCKBACK = knockback
 	MAX_SLOT = max_slot
-	DAMAGE = damage
 	WEAPON_TYPE = type
-	
+	DAMAGE = damage
+	STRAY = stray
 
 func _ready():
-	$shoot_weapon_time.wait_time = SHOOT_WEAPON_TIME
-	$reload_weapon_time.wait_time = RELOAD_WEAPON_TIME
+	$ShootWeaponTime.wait_time = SHOOT_WEAPON_TIME
+	$ReloadWeaponTime.wait_time = RELOAD_WEAPON_TIME
 	SLOT = MAX_SLOT
 
 
 func _process(_delta):
 	if can_pick:
 		if Input.is_action_just_pressed("pickup") && !picked:
-			_pick(player, "player_position_weapon")
+			_pick(player, "PlayerPositionWeapon")
 			
 		if Input.is_action_pressed("shoot") and can_shoot:
 			_shoot()
@@ -77,8 +77,8 @@ func _shoot():
 	if SLOT > 0:
 		for i in BULLETS:
 			var bullet_instance = bullet.instance()
-			var weapon_position = $weapon_position.get_global_position() + Vector2(0, 0).rotated(rotation)
-			var weapon_rotation = $weapon_position.get_global_rotation() + deg2rad(90)
+			var weapon_position = $WeaponPosition.get_global_position() + Vector2(0, 0).rotated(rotation)
+			var weapon_rotation = $WeaponPosition.get_global_rotation() + deg2rad(90)
 			
 			var target = (get_global_mouse_position() - weapon_position).normalized()
 			
@@ -91,11 +91,11 @@ func _shoot():
 				SHOOT_RAGE, DAMAGE, KNOCKBACK,
 				bullet_color, BULLET_SIZE
 			)
-			$bullet_container.add_child(bullet_instance)
+			$BulletContainer.add_child(bullet_instance)
 			SLOT -= 1
 			$CanvasLayer/munition.text = str(SLOT) + "/" + str(MAX_SLOT)
 		can_shoot = false
-		$shoot_weapon_time.start()
+		$ShootWeaponTime.start()
 		
 		
 func _pick(picker_current, player_position_hand):
@@ -106,7 +106,7 @@ func _pick(picker_current, player_position_hand):
 
 func _reload():
 	if Input.is_action_just_pressed("reload") && SLOT <= 0:
-		$reload_weapon_time.start()
+		$ReloadWeaponTime.start()
 		print("reload...")
 	
 	
@@ -117,5 +117,5 @@ func _on_shoot_weapon_time_timeout():
 func _on_reload_weapon_time_timeout():
 	SLOT = MAX_SLOT
 	$CanvasLayer/munition.text = str(SLOT) + "/" + str(MAX_SLOT)
-	$reload_weapon_time.stop()
+	$ReloadWeaponTime.stop()
 	can_shoot = false

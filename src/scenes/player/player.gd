@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var SPEED = 100
+var SPEED = 130
 
 func _process(_delta):
 	look_at(get_global_mouse_position())
