@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/scenes/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/weapons/weapon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/effects/shadown.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/scenes/enemies/Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://icon.png" type="Texture" id=5]
 
 [node name="LevelOne" type="Node2D"]
+modulate = Color( 0.972549, 0.92549, 0.92549, 1 )
+self_modulate = Color( 0.937255, 0.0392157, 0.0392157, 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
@@ -69,8 +73,13 @@ polygon = PoolVector2Array( 596.834, 726.08, 718.975, 725.077, 777.851, 672.511,
 [node name="Walls" type="Node2D" parent="Environment"]
 
 [node name="ShadedAllPoly1" type="Polygon2D" parent="Environment/Walls"]
+position = Vector2( -890.362, -6.00237 )
+scale = Vector2( 1.63828, 1.22206 )
 color = Color( 0.537255, 0.537255, 0.537255, 1 )
-polygon = PoolVector2Array( 1920.49, 0.184875, -3.47266, -2.19653, -0.644226, 1081.09, 1922.69, 1086.75 )
+polygon = PoolVector2Array( 2378.69, -474.214, 1099.31, -453.149, -3.52032, -453.149, -1.91064, 1249.69, 2378.69, 1265.14 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ShadedAllPoly2" type="Polygon2D" parent="Environment/Walls"]
 position = Vector2( 15.1021, 0 )
@@ -91,9 +100,13 @@ flag = true
 [node name="Characters" type="Node2D" parent="."]
 
 [node name="player" parent="Characters" instance=ExtResource( 1 )]
-position = Vector2( 341.147, 281.817 )
+position = Vector2( 255.427, 900.903 )
+
+[node name="Enemy" parent="Characters" instance=ExtResource( 4 )]
+position = Vector2( 871.924, 404.543 )
 
 [node name="Items" type="Node2D" parent="."]
 
 [node name="weapon" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 583.852, 281.363 )
+position = Vector2( 417.175, 902.037 )
+SPRITE_WEAPON = ExtResource( 5 )

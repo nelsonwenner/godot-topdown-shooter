@@ -8,7 +8,7 @@ extents = Vector2( 31.7202, 31.5773 )
 
 [node name="Player" type="KinematicBody2D"]
 light_mask = 2
-scale = Vector2( 0.7, 0.7 )
+scale = Vector2( 0.6, 0.6 )
 collision_layer = 2
 script = ExtResource( 2 )
 
@@ -21,3 +21,9 @@ shape = SubResource( 1 )
 [node name="PlayerPositionWeapon" type="Position2D" parent="."]
 position = Vector2( 40.6356, 0 )
 scale = Vector2( 2, 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.9, 0.9 )
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
