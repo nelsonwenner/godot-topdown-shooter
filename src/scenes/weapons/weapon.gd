@@ -66,10 +66,10 @@ func _ini(
 
 
 func _ready():
-	if ENEMY: $CanvasLayer/munition.hide()
-	$ShootWeaponTime.wait_time = SHOOT_WEAPON_TIME
-	$ReloadWeaponTime.wait_time = RELOAD_WEAPON_TIME
-	#$Sprite.texture = SPRITE_WEAPON
+	if ENEMY: get_node("CanvasLayer/munition").visible = false
+	get_node("ShootWeaponTime").wait_time = SHOOT_WEAPON_TIME
+	get_node("ReloadWeaponTime").wait_time = RELOAD_WEAPON_TIME
+	#get_node("Sprite").texture = SPRITE_WEAPON
 	scale.x = SCALE_WEAPON_X
 	scale.y = SCALE_WEAPON_Y
 	SLOT = MAX_SLOT
@@ -88,14 +88,6 @@ func _process(_delta):
 func _physics_process(_delta):
 	if !ENEMY && picked:
 		_add_weapon_in_player()
-
-
-func _on_weapon_body_entered(_body):
-	var bodies = get_node(".").get_overlapping_bodies()
-	for body in bodies:
-		if body.name == "player" && !picked:
-			PLAYER = body
-			can_pick = true
 
 
 func shoot(pos):
@@ -119,8 +111,8 @@ func shoot(pos):
 			
 			if PLAYER:
 				SLOT -= 1
-				get_node("CanvasLayer/munition").text = str(SLOT) + "/" + str(MAX_SLOT)
-				
+				_update_canvas_munition()
+		
 		if PLAYER:
 			can_shoot = false
 			get_node("ShootWeaponTime").start()
@@ -143,16 +135,28 @@ func _add_weapon_in_player():
 
 func _reload():
 	if Input.is_action_just_pressed("reload") && SLOT <= 0:
-		$ReloadWeaponTime.start()
+		get_node("ReloadWeaponTime").start()
 		print("reload...")
+		
+		
+func _update_canvas_munition():
+	get_node("CanvasLayer/munition").text = str(SLOT) + "/" + str(MAX_SLOT)
 
 
 func _on_shoot_weapon_time_timeout():
 	can_shoot = true
 
 
+func _on_weapon_body_entered(_body):
+	var bodies = get_node(".").get_overlapping_bodies()
+	for body in bodies:
+		if body.name == "player" && !picked:
+			PLAYER = body
+			can_pick = true
+
+
 func _on_reload_weapon_time_timeout():
 	SLOT = MAX_SLOT
-	$CanvasLayer/munition.text = str(SLOT) + "/" + str(MAX_SLOT)
-	$ReloadWeaponTime.stop()
+	_update_canvas_munition()
+	get_node("ReloadWeaponTime").stop()
 	can_shoot = false

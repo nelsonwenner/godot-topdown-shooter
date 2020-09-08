@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/scenes/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/weapons/weapon.tscn" type="PackedScene" id=2]
@@ -6,14 +6,55 @@
 [ext_resource path="res://src/scenes/enemies/Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://icon.png" type="Texture" id=5]
 
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+
+func _ready():
+	randomize()
+	set_camera_limits()
+
+
+func set_camera_limits():
+	var map_size = get_node(\"Environment/CameraLimit/TileMap\").get_used_rect()
+	var cell_size = get_node(\"Environment/CameraLimit/TileMap\").cell_size
+	get_node(\"Characters/player/Camera2D\").limit_left = map_size.position.x * cell_size.x
+	get_node(\"Characters/player/Camera2D\").limit_top = map_size.position.y * cell_size.y
+	get_node(\"Characters/player/Camera2D\").limit_right = map_size.end.x * cell_size.x
+	get_node(\"Characters/player/Camera2D\").limit_bottom = map_size.end.y * cell_size.y
+"
+
+[sub_resource type="TileSet" id=2]
+0/name = "icon.png 0"
+0/texture = ExtResource( 5 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
 [node name="LevelOne" type="Node2D"]
 modulate = Color( 0.972549, 0.92549, 0.92549, 1 )
-self_modulate = Color( 0.937255, 0.0392157, 0.0392157, 1 )
+script = SubResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
 
 [node name="Environment" type="Node2D" parent="."]
+
+[node name="CameraLimit" type="Node2D" parent="Environment"]
+
+[node name="TileMap" type="TileMap" parent="Environment/CameraLimit"]
+tile_set = SubResource( 2 )
+format = 1
+tile_data = PoolIntArray( 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 65537, 0, 0, 65564, 0, 0, 131073, 0, 0, 131100, 0, 0, 196609, 0, 0, 196636, 0, 0, 262145, 0, 0, 262172, 0, 0, 327681, 0, 0, 327708, 0, 0, 393217, 0, 0, 393244, 0, 0, 458753, 0, 0, 458780, 0, 0, 524289, 0, 0, 524316, 0, 0, 589825, 0, 0, 589852, 0, 0, 655361, 0, 0, 655388, 0, 0, 720897, 0, 0, 720924, 0, 0, 786433, 0, 0, 786460, 0, 0, 851969, 0, 0, 851996, 0, 0, 917505, 0, 0, 917532, 0, 0, 983041, 0, 0, 983068, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0 )
 
 [node name="Balconies" type="Node2D" parent="Environment"]
 
@@ -26,11 +67,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Balconies/balcone1"]
+[node name="Balcone" type="StaticBody2D" parent="Environment/Balconies/balcone1"]
 collision_layer = 2147483649
 collision_mask = 0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Balconies/balcone1/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Balconies/balcone1/Balcone"]
 polygon = PoolVector2Array( 782.863, 178.604, 782.069, 289.722, 1140.03, 290.516, 1291.62, 391.316, 1290.83, 445.287, 1467.83, 447.668, 1469.41, 372.267, 1218.6, 179.398 )
 
 [node name="shadown" parent="Environment/Balconies/balcone1" instance=ExtResource( 3 )]
@@ -44,10 +85,10 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Balconies/balcone2"]
+[node name="Balcone" type="StaticBody2D" parent="Environment/Balconies/balcone2"]
 collision_mask = 0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Balconies/balcone2/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Balconies/balcone2/Balcone"]
 polygon = PoolVector2Array( 597.94, 635.837, 596.258, 726.233, 719.029, 726.233, 778.312, 670.734, 896.038, 671.575, 894.356, 576.553, 750.142, 577.394, 691.28, 636.257 )
 
 [node name="shadown" parent="Environment/Balconies/balcone2" instance=ExtResource( 3 )]
@@ -62,10 +103,10 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Balconies/balcone3"]
+[node name="Balcone" type="StaticBody2D" parent="Environment/Balconies/balcone3"]
 collision_mask = 0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Balconies/balcone3/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Balconies/balcone3/Balcone"]
 polygon = PoolVector2Array( 596.834, 726.08, 718.975, 725.077, 777.851, 672.511, 895.987, 671.497, 894.904, 578.722, 746.74, 577.652, 688.509, 638.23, 597.077, 636.646 )
 
 [node name="shadown" parent="Environment/Balconies/balcone3" instance=ExtResource( 3 )]
@@ -73,24 +114,21 @@ polygon = PoolVector2Array( 596.834, 726.08, 718.975, 725.077, 777.851, 672.511,
 [node name="Walls" type="Node2D" parent="Environment"]
 
 [node name="ShadedAllPoly1" type="Polygon2D" parent="Environment/Walls"]
-position = Vector2( -890.362, -6.00237 )
-scale = Vector2( 1.63828, 1.22206 )
+position = Vector2( 0, 430.143 )
+scale = Vector2( 0.993311, 0.880007 )
 color = Color( 0.537255, 0.537255, 0.537255, 1 )
-polygon = PoolVector2Array( 2378.69, -474.214, 1099.31, -453.149, -3.52032, -453.149, -1.91064, 1249.69, 2378.69, 1265.14 )
-__meta__ = {
-"_edit_lock_": true
-}
+polygon = PoolVector2Array( 2126.77, -483.7, 1219.31, -488.468, 1.14424, -487.863, -1.92044, 906.101, 1153.56, 910.391, 2126.77, 905.736, 2129.46, 356.636 )
 
 [node name="ShadedAllPoly2" type="Polygon2D" parent="Environment/Walls"]
 position = Vector2( 15.1021, 0 )
 color = Color( 0.643137, 0.643137, 0.643137, 1 )
 polygon = PoolVector2Array( 191.444, 275.356, 153.689, 413.162, 170.679, 550.967, 234.862, 649.13, 231.087, 752.956, 149.045, 837.284, 146.375, 981.447, 915.243, 981.447, 916.34, 853.007, 1167.41, 853.007, 1166.19, 981.447, 1744.5, 984.925, 1741.29, 802.038, 1658.22, 715.201, 1714.86, 567.957, 1703.53, 426.376, 1614.81, 194.183, 1315.7, 100.453, 709.027, 100.6, 371.567, 104.533, 238.375, 140.21 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Walls/ShadedAllPoly2"]
+[node name="Wall" type="StaticBody2D" parent="Environment/Walls/ShadedAllPoly2"]
 show_behind_parent = true
 collision_mask = 2147483648
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Walls/ShadedAllPoly2/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Walls/ShadedAllPoly2/Wall"]
 modulate = Color( 0.937255, 0.937255, 0.937255, 1 )
 polygon = PoolVector2Array( 237.412, 138.692, 153.323, 414.506, 166.777, 540.641, 234.049, 653.321, 234.049, 754.228, 144.914, 838.318, 146.595, 976.225, 918.538, 979.589, 918.538, 855.136, 1162.4, 853.454, 1167.44, 974.543, 1747.66, 981.271, 1747.66, 801.319, 1660.21, 713.865, 1719.07, 565.868, 1705.62, 422.915, 1613.12, 189.146, 1305.35, 101.693, 360.183, 101.693, 239.788, 141.339, 336.638, 71.4206, 1320.49, 73.1023, 1629.94, 170.646, 1732.53, 416.188, 1747.66, 567.549, 1692.16, 710.502, 1772.89, 797.955, 1769.53, 974.543, 1735.89, 1014.91, 1165.76, 1003.13, 129.777, 1026.68, 112.96, 564.186, 163.413, 133.647 )
 

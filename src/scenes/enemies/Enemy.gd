@@ -15,11 +15,13 @@ var target
 
 
 func _ready():
-	$ShootWeaponTime.wait_time = 0.2
-	$Sprite.self_modulate = Color(0.2, 0, 0)
+	get_node("ShootWeaponTime").wait_time = 0.2
+	get_node("Sprite").self_modulate = Color(0.2, 0, 0)
 	var shape = CircleShape2D.new()
 	shape.radius = detect_radius
-	$Visibility/CollisionShape2D.shape = shape
+	get_node("Visibility/CollisionShape2D").shape = shape
+	scale.x = 0.6
+	scale.y = 0.6
 	_init_weapon()
 	
 
@@ -28,15 +30,16 @@ func _init_weapon():
 	weapon_instance.position.x = 40
 	add_child(weapon_instance)
 	weapon_instance._ini(
-		self,"AK47",null,1,
-		0.8,0.1,500,1,700,
-		0,36,10,0.1
+		self,"AK47",load("res://icon.png"),
+		1,0.8,0.1,500,1,700,0,36,10,0.1
 	)
+
 
 func _physics_process(_delta):
 	update()
 	if target:
 		_aim()
+
 
 func _aim():
 	var space_state = get_world_2d().direct_space_state
