@@ -2,8 +2,14 @@ extends KinematicBody2D
 
 var SPEED = 130
 
+func _ready():
+	scale.x = 0.6
+	scale.y = 0.6
+
+
 func _process(_delta):
 	look_at(get_global_mouse_position())
+
 
 func _physics_process(_delta):
 	var motion = Vector2(0,0)
