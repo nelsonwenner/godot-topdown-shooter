@@ -8,7 +8,7 @@ extents = Vector2( 30.556, 31.3067 )
 
 [node name="Enemy" type="KinematicBody2D"]
 scale = Vector2( 0.8, 0.8 )
-collision_layer = 4
+collision_layer = 2147483652
 collision_mask = 3
 script = ExtResource( 2 )
 detect_radius = 600

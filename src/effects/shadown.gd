@@ -13,7 +13,7 @@ func _ready():
 func _process(_delta):
 	#shadow_dir = get_viewport().size / 2.0 - get_global_mouse_position()
 	#print("shadow => ", shadow_dir)
-	shadow_dir = Vector2(-47, 79)
+	shadow_dir = Vector2(4.1, 13.0)
 	update()
 
 func _draw():

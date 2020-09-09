@@ -15,7 +15,6 @@ var BULLET_SIZE = 1
 var KNOCKBACK = 0
 var BULLETS = 1
 var DAMAGE = 10
-var STRAY = 0.1
 
 var SHOOT_WEAPON_TIME = 0.1
 var RELOAD_WEAPON_TIME = 2.5
@@ -23,7 +22,7 @@ var RELOAD_WEAPON_TIME = 2.5
 var MAX_SLOT = 36
 var SLOT = -1
 
-var picked = false
+var picked: bool
 var can_pick: bool
 
 var player_hand = null
@@ -46,8 +45,7 @@ func _ini(
 		shoot_range,
 		knockback,
 		max_slot,
-		damage,
-		stray
+		damage
 	):
 	
 	SCALE_WEAPON_X = scale_weapon_x
@@ -62,7 +60,6 @@ func _ini(
 	KNOCKBACK = knockback
 	MAX_SLOT = max_slot
 	DAMAGE = damage
-	STRAY = stray
 
 
 func _ready():
@@ -95,17 +92,14 @@ func shoot(pos):
 		for i in BULLETS:
 			var bullet_instance = bullet.instance()
 			var weapon_position = get_node("WeaponPosition").get_global_position() + Vector2(0, 0).rotated(rotation)
-			var weapon_rotation = get_node("WeaponPosition").get_global_rotation() + deg2rad(90)
+			var weapon_rotation = get_node("WeaponPosition").get_global_rotation()
 			
 			var target = (pos - weapon_position).normalized()
 			
-			if STRAY > 0: target = target.rotated(rand_range(STRAY*-1,STRAY))
-			
 			bullet_instance._ini(
 				target,rand_range(BULLET_SPEED*0.9, BULLET_SPEED*1.1),
-				weapon_position, weapon_rotation,
-				SHOOT_RAGE, DAMAGE, KNOCKBACK,
-				bullet_color, BULLET_SIZE)
+				weapon_position, weapon_rotation, SHOOT_RAGE, 
+				DAMAGE, KNOCKBACK,BULLET_SIZE)
 			
 			get_node("BulletContainer").add_child(bullet_instance)
 			
@@ -147,12 +141,26 @@ func _on_shoot_weapon_time_timeout():
 	can_shoot = true
 
 
-func _on_weapon_body_entered(_body):
+func _weaponOverlappingBodies():
 	var bodies = get_node(".").get_overlapping_bodies()
 	for body in bodies:
 		if body.name == "player" && !picked:
-			PLAYER = body
-			can_pick = true
+			return body
+	return null
+
+
+func _on_weapon_body_entered(_body):
+	var body = _weaponOverlappingBodies()
+	if body:
+		PLAYER = body
+		can_pick = true
+
+
+func _on_Weapon_body_exited(_body):
+	var body = _weaponOverlappingBodies()
+	if body:
+		PLAYER = null
+		can_pick = false
 
 
 func _on_reload_weapon_time_timeout():

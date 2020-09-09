@@ -1,9 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/scenes/bullets/BaseBullet.gd" type="Script" id=1]
-
-[sub_resource type="CircleShape2D" id=1]
-radius = 3.09379
+[ext_resource path="res://arts/weapon/bullet.png" type="Texture" id=2]
 
 [sub_resource type="SphereMesh" id=2]
 
@@ -12,15 +10,20 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource( 1 )
 
-[node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -66.1577, -0.808481, -46.4925, -2.68137, -20.0848, -6.05256, 8.38304, -10.3602, 46.2153, -12.4204, 57.8272, -9.79832, 64.9441, -5.3034, 66.2551, -0.246616, 65.3187, 4.62288, 59.7001, 9.30509, 51.2721, 12.1144, 37.7873, 12.1144, 22.4297, 11.3653, 15.1254, 10.0542, 5.19914, 7.80678, -15.9644, 6.87034, -34.6933, 5.37203, -39.9374, 3.87373, -50.8001, 2.56271, -61.1009, 1.43898, -65.9704, 0.877113 )
 
 [node name="AreaBulletBody" type="Area2D" parent="."]
+visible = false
 
-[node name="Collision" type="CollisionShape2D" parent="AreaBulletBody"]
-shape = SubResource( 1 )
+[node name="Collision" type="CollisionPolygon2D" parent="AreaBulletBody"]
+polygon = PoolVector2Array( -66.1577, -0.808481, -46.4925, -2.68137, -20.0848, -6.05256, 8.38304, -10.3602, 46.2153, -12.4204, 57.8272, -9.79832, 64.9441, -5.3034, 66.2551, -0.246616, 65.3187, 4.62288, 59.7001, 9.30509, 51.2721, 12.1144, 37.7873, 12.1144, 22.4297, 11.3653, 15.1254, 10.0542, 5.19914, 7.80678, -15.9644, 6.87034, -34.6933, 5.37203, -39.9374, 3.87373, -50.8001, 2.56271, -61.1009, 1.43898, -65.9704, 0.877113 )
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
 modulate = Color( 0, 1, 0.0627451, 1 )
 scale = Vector2( 3, 3 )
 mesh = SubResource( 2 )

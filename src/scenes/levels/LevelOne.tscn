@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/scenes/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/weapons/weapon.tscn" type="PackedScene" id=2]
@@ -40,6 +40,11 @@ func set_camera_limits():
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="NavigationPolygon" id=3]
+vertices = PoolVector2Array( 1114.16, 514.956, 1226.46, 510.718, 1228.58, 828.557, 891.674, 832.794, 175.477, 468.339, 179.715, 262.803, 446.7, 267.041, 448.819, 440.793, 340.754, 531.907, 446.7, 635.734, 338.635, 650.567, 732.755, 921.789, 732.755, 353.917, 1006.1, 351.798, 1107.8, 415.366, 891.674, 964.168, 167.002, 959.93, 516.624, 923.908, 516.624, 718.372, 164.883, 834.913 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7, 8 ), PoolIntArray( 8, 7, 9, 10 ), PoolIntArray( 11, 12, 13, 14, 0, 3 ), PoolIntArray( 11, 3, 15 ), PoolIntArray( 11, 15, 16, 17 ), PoolIntArray( 18, 17, 16, 19, 10, 9 ) ]
+outlines = [ PoolVector2Array( 732.755, 353.917, 732.755, 921.789, 516.624, 923.908, 516.624, 718.372, 446.7, 635.734, 448.819, 440.793, 446.7, 267.041, 179.715, 262.803, 175.477, 468.339, 340.754, 531.907, 338.635, 650.567, 164.883, 834.913, 167.002, 959.93, 891.674, 964.168, 891.674, 832.794, 1228.58, 828.557, 1226.46, 510.718, 1114.16, 514.956, 1107.8, 415.366, 1006.1, 351.798 ) ]
+
 [node name="LevelOne" type="Node2D"]
 modulate = Color( 0.972549, 0.92549, 0.92549, 1 )
 script = SubResource( 1 )
@@ -60,6 +65,7 @@ tile_data = PoolIntArray( 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 
 
 [node name="balcone1" type="Polygon2D" parent="Environment/Balconies"]
 position = Vector2( -0.667358, -2.00226 )
+scale = Vector2( 0.874258, 1.04007 )
 z_index = 3
 color = Color( 0.803922, 0.803922, 0.803922, 1 )
 polygon = PoolVector2Array( 781.799, 203.95, 782.309, 290.458, 1137.53, 290.047, 1292, 392.396, 1291.71, 446.224, 1467.24, 446.891, 1467.56, 371.631, 1222.15, 180.969, 781.132, 179.923 )
@@ -77,13 +83,11 @@ polygon = PoolVector2Array( 782.863, 178.604, 782.069, 289.722, 1140.03, 290.516
 [node name="shadown" parent="Environment/Balconies/balcone1" instance=ExtResource( 3 )]
 
 [node name="balcone2" type="Polygon2D" parent="Environment/Balconies"]
-position = Vector2( -88.8944, -38.0976 )
+position = Vector2( 738.933, 257.465 )
+scale = Vector2( 0.889728, 0.871588 )
 z_index = 3
 color = Color( 0.803922, 0.803922, 0.803922, 1 )
 polygon = PoolVector2Array( 597.189, 636.217, 597.983, 637.011, 597.189, 724.318, 596.814, 726.163, 718.814, 726.163, 776.814, 672.163, 895.614, 672.102, 895.194, 577.922, 750.373, 577.483, 690.814, 636.163 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Balcone" type="StaticBody2D" parent="Environment/Balconies/balcone2"]
 collision_mask = 0
@@ -94,14 +98,12 @@ polygon = PoolVector2Array( 597.94, 635.837, 596.258, 726.233, 719.029, 726.233,
 [node name="shadown" parent="Environment/Balconies/balcone2" instance=ExtResource( 3 )]
 
 [node name="balcone3" type="Polygon2D" parent="Environment/Balconies"]
-position = Vector2( 2089.02, 22.2236 )
+position = Vector2( 1532.79, -519.069 )
 rotation = 1.56808
+scale = Vector2( 1.58098, 1.46001 )
 z_index = 3
 color = Color( 0.803922, 0.803922, 0.803922, 1 )
 polygon = PoolVector2Array( 597.189, 636.217, 597.983, 637.011, 597.189, 724.318, 596.814, 726.163, 718.814, 726.163, 776.814, 672.163, 895.614, 672.102, 895.194, 577.922, 750.373, 577.483, 690.814, 636.163 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Balcone" type="StaticBody2D" parent="Environment/Balconies/balcone3"]
 collision_mask = 0
@@ -112,17 +114,21 @@ polygon = PoolVector2Array( 596.834, 726.08, 718.975, 725.077, 777.851, 672.511,
 [node name="shadown" parent="Environment/Balconies/balcone3" instance=ExtResource( 3 )]
 
 [node name="Walls" type="Node2D" parent="Environment"]
+position = Vector2( -32.0917, 0 )
 
 [node name="ShadedAllPoly1" type="Polygon2D" parent="Environment/Walls"]
-position = Vector2( 0, 430.143 )
-scale = Vector2( 0.993311, 0.880007 )
+position = Vector2( 33.227, 435.022 )
+scale = Vector2( 0.938656, 0.894684 )
 color = Color( 0.537255, 0.537255, 0.537255, 1 )
-polygon = PoolVector2Array( 2126.77, -483.7, 1219.31, -488.468, 1.14424, -487.863, -1.92044, 906.101, 1153.56, 910.391, 2126.77, 905.736, 2129.46, 356.636 )
+polygon = PoolVector2Array( 2126.77, -483.7, 1.14424, -487.863, -1.92044, 906.101, 2126.77, 905.736 )
 
 [node name="ShadedAllPoly2" type="Polygon2D" parent="Environment/Walls"]
-position = Vector2( 15.1021, 0 )
+position = Vector2( 32.0917, 0.288086 )
 color = Color( 0.643137, 0.643137, 0.643137, 1 )
-polygon = PoolVector2Array( 191.444, 275.356, 153.689, 413.162, 170.679, 550.967, 234.862, 649.13, 231.087, 752.956, 149.045, 837.284, 146.375, 981.447, 915.243, 981.447, 916.34, 853.007, 1167.41, 853.007, 1166.19, 981.447, 1744.5, 984.925, 1741.29, 802.038, 1658.22, 715.201, 1714.86, 567.957, 1703.53, 426.376, 1614.81, 194.183, 1315.7, 100.453, 709.027, 100.6, 371.567, 104.533, 238.375, 140.21 )
+polygon = PoolVector2Array( 148.057, 265.296, 147.113, 265.296, 148.057, 485.218, 319.837, 544.596, 319.837, 653.386, 144.507, 836.745, 144.586, 981.203, 914.322, 981.203, 914.322, 852.913, 1167.41, 853.007, 1167.08, 979.834, 1655.05, 979.834, 1655.28, 775.4, 1534.13, 613.155, 1409.99, 613.155, 1409.99, 444.298, 1531.46, 444.298, 1532.24, 193.712, 1315.7, 100.453, 1314.24, 99.7119, 410.237, 99.7119 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Wall" type="StaticBody2D" parent="Environment/Walls/ShadedAllPoly2"]
 show_behind_parent = true
@@ -130,10 +136,19 @@ collision_mask = 2147483648
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Walls/ShadedAllPoly2/Wall"]
 modulate = Color( 0.937255, 0.937255, 0.937255, 1 )
-polygon = PoolVector2Array( 237.412, 138.692, 153.323, 414.506, 166.777, 540.641, 234.049, 653.321, 234.049, 754.228, 144.914, 838.318, 146.595, 976.225, 918.538, 979.589, 918.538, 855.136, 1162.4, 853.454, 1167.44, 974.543, 1747.66, 981.271, 1747.66, 801.319, 1660.21, 713.865, 1719.07, 565.868, 1705.62, 422.915, 1613.12, 189.146, 1305.35, 101.693, 360.183, 101.693, 239.788, 141.339, 336.638, 71.4206, 1320.49, 73.1023, 1629.94, 170.646, 1732.53, 416.188, 1747.66, 567.549, 1692.16, 710.502, 1772.89, 797.955, 1769.53, 974.543, 1735.89, 1014.91, 1165.76, 1003.13, 129.777, 1026.68, 112.96, 564.186, 163.413, 133.647 )
+polygon = PoolVector2Array( 125.049, 267.165, 147.523, 268.663, 144.527, 485.918, 316.832, 547.348, 318.33, 652.23, 143.028, 838.02, 141.53, 977.363, 916.155, 981.857, 914.657, 854.501, 1166.37, 854.501, 1167.87, 975.864, 1653.32, 977.363, 1656.32, 778.088, 1531.96, 614.772, 1412.09, 614.772, 1410.6, 439.47, 1528.96, 442.467, 1533.46, 195.246, 1308.71, 97.8562, 414.222, 100.853, 153.517, 261.172, 132.54, 255.178, 403.734, 81.3748, 1308.71, 81.3748, 1546.94, 180.263, 1548.44, 463.443, 1427.08, 461.945, 1427.08, 601.287, 1551.44, 598.291, 1671.3, 767.6, 1672.8, 993.844, 1151.39, 995.342, 1146.89, 873.979, 928.141, 870.983, 931.138, 989.349, 120.554, 992.346, 120.554, 818.542, 283.869, 652.23, 285.368, 563.83, 117.557, 505.396 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Shadown" parent="Environment/Walls/ShadedAllPoly2" instance=ExtResource( 3 )]
-flag = true
+
+[node name="Navigator" type="Node2D" parent="Environment"]
+
+[node name="Navigation2D" type="Navigation2D" parent="Environment/Navigator"]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Environment/Navigator/Navigation2D"]
+navpoly = SubResource( 3 )
 
 [node name="Characters" type="Node2D" parent="."]
 
@@ -142,6 +157,9 @@ position = Vector2( 255.427, 900.903 )
 
 [node name="Enemy" parent="Characters" instance=ExtResource( 4 )]
 position = Vector2( 871.924, 404.543 )
+
+[node name="Enemy2" parent="Characters" instance=ExtResource( 4 )]
+position = Vector2( 1189.42, 796.716 )
 
 [node name="Items" type="Node2D" parent="."]
 

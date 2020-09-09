@@ -9,9 +9,8 @@ var DMG = 100
 
 const collisions = ['Wall', 'Balcone']
 
-func _ini(direction,velocity,pos,rota,distance,damage,knockb,col,size):
+func _ini(direction,velocity,pos,rota,distance,damage,knockb,size):
 	scale = Vector2(size,size)
-	get_node("MeshInstance2D").modulate = col
 	DMG = damage
 	origin = pos
 	position = pos
@@ -21,6 +20,11 @@ func _ini(direction,velocity,pos,rota,distance,damage,knockb,col,size):
 	max_distance = distance
 	KNOCKBACK = knockb
 
+
+func _ready():
+	scale.x = 0.25
+	scale.y = 0.25
+	
 
 func _physics_process(_delta):
 	move_and_slide(dir * SPEED)

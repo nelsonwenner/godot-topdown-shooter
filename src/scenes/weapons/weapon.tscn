@@ -39,5 +39,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="body_entered" from="." to="." method="_on_weapon_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Weapon_body_exited"]
 [connection signal="timeout" from="ShootWeaponTime" to="." method="_on_shoot_weapon_time_timeout"]
 [connection signal="timeout" from="ReloadWeaponTime" to="." method="_on_reload_weapon_time_timeout"]
