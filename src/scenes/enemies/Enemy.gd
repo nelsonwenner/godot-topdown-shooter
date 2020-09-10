@@ -12,7 +12,7 @@ var weapon_instance = null
 
 var can_shoot = true
 
-var speed = 120
+export (int) var speed = 120
 
 var player_in_range
 var player_in_sight
@@ -35,23 +35,26 @@ var state:int = Rest
 func _ready():
 	starting_position = get_global_position()
 	get_node("ShootWeaponTime").wait_time = 0.2
-	get_node("Sprite").self_modulate = Color(0.2, 0, 0)
+	get_node("Sprite").self_modulate.r = 30
 	var shape = CircleShape2D.new()
 	shape.radius = detect_radius
 	get_node("Visibility/CollisionShape2D").shape = shape
-	scale.x = 0.6
-	scale.y = 0.6
+	scale.x = 0.1
+	scale.y = 0.1
 	init_weapon()
 	
 
 func init_weapon():
 	weapon_instance = weapon.instance()
-	weapon_instance.position.x = 40
 	add_child(weapon_instance)
 	weapon_instance._ini(
-		self,"AK47",load("res://icon.png"),
-		1,0.8,0.1,500,1,700,0,36,10
+		self,"AK47",load("res://arts/weapon/gun-01.png"),
+		1,1,1,500,1,700,0,36,10
 	)
+	weapon_instance.position.x = 80
+	weapon_instance.position.y = 28
+	weapon_instance.scale.x = 1
+	weapon_instance.scale.y = 1
 
 
 func _process(_delta):
@@ -64,7 +67,9 @@ func _process(_delta):
 		Search:
 			_search(_delta)
 		Return:
-			_returnToStartingPoint(_delta)
+			yield(get_tree().create_timer(3), "timeout")
+			if state == 3:
+				_returnToStartingPoint(_delta)
 
 
 func _physics_process(_delta):

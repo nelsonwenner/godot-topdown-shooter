@@ -5,10 +5,9 @@ onready var bullet = preload("res://src/scenes/bullets/BaseBullet.tscn")
 export var WEAPON_TYPE = "AK47"
 export (Texture) var SPRITE_WEAPON
 
-var SCALE_WEAPON_X = 0.8
+var SCALE_WEAPON_X = 0.1
 var SCALE_WEAPON_Y = 0.1
 
-export var bullet_color:Color
 var BULLET_SPEED = 500
 var SHOOT_RAGE = 700
 var BULLET_SIZE = 1
@@ -66,7 +65,7 @@ func _ready():
 	if ENEMY: get_node("CanvasLayer/munition").visible = false
 	get_node("ShootWeaponTime").wait_time = SHOOT_WEAPON_TIME
 	get_node("ReloadWeaponTime").wait_time = RELOAD_WEAPON_TIME
-	#get_node("Sprite").texture = SPRITE_WEAPON
+	get_node("Sprite").texture = load("res://arts/weapon/gun-01.png")
 	scale.x = SCALE_WEAPON_X
 	scale.y = SCALE_WEAPON_Y
 	SLOT = MAX_SLOT
