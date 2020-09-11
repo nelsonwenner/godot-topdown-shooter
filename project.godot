@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="godot-shoot-survive"
+config/name="godot-topdown-shooter"
 run/main_scene="res://src/main/main.tscn"
 config/icon="res://icon.png"
 

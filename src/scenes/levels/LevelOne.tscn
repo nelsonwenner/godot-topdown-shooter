@@ -67,7 +67,7 @@ tile_data = PoolIntArray( 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 
 position = Vector2( -0.667358, -2.00226 )
 scale = Vector2( 0.874258, 1.04007 )
 z_index = 3
-color = Color( 0.803922, 0.803922, 0.803922, 1 )
+color = Color( 0.729412, 0.792157, 0.811765, 1 )
 polygon = PoolVector2Array( 781.799, 203.95, 782.309, 290.458, 1137.53, 290.047, 1292, 392.396, 1291.71, 446.224, 1467.24, 446.891, 1467.56, 371.631, 1222.15, 180.969, 781.132, 179.923 )
 __meta__ = {
 "_edit_lock_": true
@@ -86,7 +86,7 @@ polygon = PoolVector2Array( 782.863, 178.604, 782.069, 289.722, 1140.03, 290.516
 position = Vector2( 738.933, 257.465 )
 scale = Vector2( 0.889728, 0.871588 )
 z_index = 3
-color = Color( 0.803922, 0.803922, 0.803922, 1 )
+color = Color( 0.729412, 0.792157, 0.811765, 1 )
 polygon = PoolVector2Array( 597.189, 636.217, 597.983, 637.011, 597.189, 724.318, 596.814, 726.163, 718.814, 726.163, 776.814, 672.163, 895.614, 672.102, 895.194, 577.922, 750.373, 577.483, 690.814, 636.163 )
 
 [node name="Balcone" type="StaticBody2D" parent="Environment/Balconies/balcone2"]
@@ -102,7 +102,7 @@ position = Vector2( 1532.79, -519.069 )
 rotation = 1.56808
 scale = Vector2( 1.58098, 1.46001 )
 z_index = 3
-color = Color( 0.803922, 0.803922, 0.803922, 1 )
+color = Color( 0.729412, 0.792157, 0.811765, 1 )
 polygon = PoolVector2Array( 597.189, 636.217, 597.983, 637.011, 597.189, 724.318, 596.814, 726.163, 718.814, 726.163, 776.814, 672.163, 895.614, 672.102, 895.194, 577.922, 750.373, 577.483, 690.814, 636.163 )
 
 [node name="Balcone" type="StaticBody2D" parent="Environment/Balconies/balcone3"]
@@ -119,12 +119,14 @@ position = Vector2( -32.0917, 0 )
 [node name="ShadedAllPoly1" type="Polygon2D" parent="Environment/Walls"]
 position = Vector2( 33.227, 435.022 )
 scale = Vector2( 0.938656, 0.894684 )
-color = Color( 0.537255, 0.537255, 0.537255, 1 )
+color = Color( 0.729412, 0.792157, 0.811765, 1 )
 polygon = PoolVector2Array( 2126.77, -483.7, 1.14424, -487.863, -1.92044, 906.101, 2126.77, 905.736 )
 
-[node name="ShadedAllPoly2" type="Polygon2D" parent="Environment/Walls"]
+[node name="ShadedAllPoly2" type="Polygon2D" parent="Environment/Walls" groups=[
+"World",
+]]
 position = Vector2( 32.0917, 0.288086 )
-color = Color( 0.643137, 0.643137, 0.643137, 1 )
+color = Color( 0.603922, 0.662745, 0.682353, 1 )
 polygon = PoolVector2Array( 148.057, 265.296, 147.113, 265.296, 148.057, 485.218, 319.837, 544.596, 319.837, 653.386, 144.507, 836.745, 144.586, 981.203, 914.322, 981.203, 914.322, 852.913, 1167.41, 853.007, 1167.08, 979.834, 1655.05, 979.834, 1655.28, 775.4, 1534.13, 613.155, 1409.99, 613.155, 1409.99, 444.298, 1531.46, 444.298, 1532.24, 193.712, 1315.7, 100.453, 1314.24, 99.7119, 410.237, 99.7119 )
 __meta__ = {
 "_edit_lock_": true
@@ -154,6 +156,7 @@ navpoly = SubResource( 3 )
 
 [node name="player" parent="Characters" instance=ExtResource( 1 )]
 position = Vector2( 255.427, 900.903 )
+scale = Vector2( 0.11, 0.11 )
 
 [node name="Enemy" parent="Characters" instance=ExtResource( 4 )]
 position = Vector2( 871.924, 404.543 )
@@ -172,4 +175,4 @@ speed = 90
 
 [node name="weapon" parent="Items" instance=ExtResource( 2 )]
 position = Vector2( 417.175, 902.037 )
-SPRITE_WEAPON = ExtResource( 5 )
+scale = Vector2( 0.11, 0.11 )

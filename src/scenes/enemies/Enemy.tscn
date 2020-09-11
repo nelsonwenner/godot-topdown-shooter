@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://arts/player/body-reload-02-sprite-1.png" type="Texture" id=1]
 [ext_resource path="res://src/scenes/enemies/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://arts/healthbar/Ellipse 1.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 318.337, 199.247 )
 
-[node name="Enemy" type="KinematicBody2D"]
+[node name="Enemy" type="KinematicBody2D" groups=[
+"Enemies",
+]]
 scale = Vector2( 0.1, 0.1 )
 collision_layer = 2147483652
 collision_mask = 3
@@ -20,7 +23,6 @@ detect_radius = 3500
 texture = ExtResource( 1 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="ShootWeaponTime" type="Timer" parent="."]
@@ -28,6 +30,24 @@ shape = SubResource( 1 )
 [node name="Visibility" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visibility"]
+
+[node name="HpBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = -742.421
+margin_top = 688.542
+margin_right = -468.421
+margin_bottom = 980.542
+rect_min_size = Vector2( 80, 0 )
+rect_rotation = -89.9967
+rect_scale = Vector2( 5, 5 )
+value = 100.0
+texture_progress = ExtResource( 3 )
+tint_under = Color( 0.156863, 0.156863, 0.156863, 0.156863 )
+tint_progress = Color( 0, 1, 0, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="ShootWeaponTime" to="." method="_on_ShootWeaponTime_timeout"]
 [connection signal="body_entered" from="Visibility" to="." method="_on_Visibility_body_entered"]
 [connection signal="body_exited" from="Visibility" to="." method="_on_Visibility_body_exited"]

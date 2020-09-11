@@ -5,9 +5,6 @@ onready var bullet = preload("res://src/scenes/bullets/BaseBullet.tscn")
 export var WEAPON_TYPE = "AK47"
 export (Texture) var SPRITE_WEAPON
 
-var SCALE_WEAPON_X = 0.1
-var SCALE_WEAPON_Y = 0.1
-
 var BULLET_SPEED = 500
 var SHOOT_RAGE = 700
 var BULLET_SIZE = 1
@@ -37,8 +34,6 @@ func _ini(
 		weapon_type,
 		sprite_weapon,
 		bullet_quantity,
-		scale_weapon_x,
-		scale_weapon_y,
 		bullet_speed,
 		bullet_size,
 		shoot_range,
@@ -47,8 +42,6 @@ func _ini(
 		damage
 	):
 	
-	SCALE_WEAPON_X = scale_weapon_x
-	SCALE_WEAPON_Y = scale_weapon_y
 	SPRITE_WEAPON = sprite_weapon
 	BULLET_SPEED = bullet_speed
 	WEAPON_TYPE = weapon_type
@@ -65,9 +58,7 @@ func _ready():
 	if ENEMY: get_node("CanvasLayer/munition").visible = false
 	get_node("ShootWeaponTime").wait_time = SHOOT_WEAPON_TIME
 	get_node("ReloadWeaponTime").wait_time = RELOAD_WEAPON_TIME
-	get_node("Sprite").texture = load("res://arts/weapon/gun-01.png")
-	scale.x = SCALE_WEAPON_X
-	scale.y = SCALE_WEAPON_Y
+	get_node("Sprite").texture = SPRITE_WEAPON
 	SLOT = MAX_SLOT
 	z_index = 2
 	
@@ -95,8 +86,10 @@ func shoot(pos):
 			
 			var target = (pos - weapon_position).normalized()
 			
+			var owner_bullet = "Enemy" if ENEMY else "Player"
+			
 			bullet_instance._ini(
-				target,rand_range(BULLET_SPEED*0.9, BULLET_SPEED*1.1),
+				owner_bullet,target,rand_range(BULLET_SPEED*0.9, BULLET_SPEED*1.1),
 				weapon_position, weapon_rotation, SHOOT_RAGE, 
 				DAMAGE, KNOCKBACK,BULLET_SIZE)
 			

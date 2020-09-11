@@ -3,6 +3,7 @@ extends KinematicBody2D
 onready var map_navigation = get_parent().get_node("../Environment/Navigator/Navigation2D")
 onready var weapon = preload("res://src/scenes/weapons/weapon.tscn")
 onready var player = get_parent().get_node("player")
+onready var hp_bar = get_node("HpBar")
 
 export (int) var detect_radius
 var vis_color = Color(.867, .91, .247, 0.1)
@@ -13,6 +14,10 @@ var weapon_instance = null
 var can_shoot = true
 
 export (int) var speed = 120
+
+var max_hp = 400
+var current_hp
+var percentage_hp
 
 var player_in_range
 var player_in_sight
@@ -39,22 +44,47 @@ func _ready():
 	var shape = CircleShape2D.new()
 	shape.radius = detect_radius
 	get_node("Visibility/CollisionShape2D").shape = shape
-	scale.x = 0.1
-	scale.y = 0.1
 	init_weapon()
+	current_hp = max_hp
 	
 
 func init_weapon():
 	weapon_instance = weapon.instance()
 	add_child(weapon_instance)
-	weapon_instance._ini(
-		self,"AK47",load("res://arts/weapon/gun-01.png"),
-		1,1,1,500,1,700,0,36,10
+	weapon_instance._ini(self,"AK47",
+		load("res://arts/weapon/gun-01.png"),
+		1,500,1,700,0,36,10
 	)
-	weapon_instance.position.x = 80
-	weapon_instance.position.y = 28
+	weapon_instance.position.x = 113.265
+	weapon_instance.position.y = 40.115
 	weapon_instance.scale.x = 1
 	weapon_instance.scale.y = 1
+
+
+func onHit(damage):
+	current_hp -= damage
+	_hpBarUpdate()
+	if current_hp <= 0:
+		_onDeath()
+
+
+func _hpBarUpdate():
+	percentage_hp = int((float(current_hp) / max_hp) * 100)
+	hp_bar.value = percentage_hp
+	if percentage_hp >= 60:
+		hp_bar.set_tint_progress("14e114")
+	elif percentage_hp <= 60 and percentage_hp >= 25:
+		hp_bar.set_tint_progress("e1be32")
+	else:
+		hp_bar.set_tint_progress("e11e1e")
+
+		
+func _onDeath():
+	print("Death..")
+	get_node("Visibility/CollisionShape2D")
+	.set_deferred("desabled", true)
+	get_node("HpBar").hide()
+	queue_free()
 
 
 func _process(_delta):
