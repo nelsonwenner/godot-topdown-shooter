@@ -5,19 +5,21 @@ var dir = Vector2(0,0)
 var max_distance = -1
 var KNOCKBACK = 0
 var SPEED = 800
-var DMG = 100
+var DAMAGE = 50
+var owner_bullet
 
 const collisions = ['Wall', 'Balcone']
 
-func _ini(direction,velocity,pos,rota,distance,damage,knockb,size):
+func _ini(owner,direction,velocity,pos,rota,distance,damage,knockb,size):
 	scale = Vector2(size,size)
-	DMG = damage
+	DAMAGE = damage
 	origin = pos
 	position = pos
 	rotation = rota
 	dir = direction
 	SPEED = velocity
 	max_distance = distance
+	owner_bullet = owner
 	KNOCKBACK = knockb
 
 
@@ -40,4 +42,7 @@ func _on_Area_body_entered(_body):
 			print("Bullet Destroyed in: ", body.name)
 			queue_free()
 			
-			
+	if _body.is_in_group("Enemies") and owner_bullet == "Player":
+		_body.onHit(DAMAGE)
+		self.hide()
+		print("Hit! => ", owner_bullet)
