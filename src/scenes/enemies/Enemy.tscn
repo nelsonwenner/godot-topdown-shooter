@@ -20,11 +20,6 @@ extents = Vector2( 318.337, 199.247 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 14 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 17 ) ],
-"loop": true,
-"name": "blood2",
-"speed": 8.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 13 ), ExtResource( 15 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "blood1",
@@ -33,6 +28,11 @@ animations = [ {
 "frames": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 13 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "blodedeath",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "blood2",
 "speed": 8.0
 } ]
 
@@ -46,14 +46,13 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
-detect_radius = 3500
+detect_radius = 10000
 
 [node name="Sprite" type="Sprite" parent="."]
 self_modulate = Color( 0.560784, 0.560784, 0.560784, 1 )
 texture = ExtResource( 1 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="ShootWeaponTime" type="Timer" parent="."]
