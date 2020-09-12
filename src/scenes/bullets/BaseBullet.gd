@@ -44,4 +44,5 @@ func _on_Area_body_entered(_body):
 			
 	if _body.is_in_group("Enemies") and owner_bullet == "Player":
 		_body.onHit(DAMAGE)
+		self.hide()
 		print("Hit! => ", owner_bullet)

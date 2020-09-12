@@ -3,7 +3,10 @@ extends KinematicBody2D
 onready var map_navigation = get_parent().get_node("../Environment/Navigator/Navigation2D")
 onready var weapon = preload("res://src/scenes/weapons/weapon.tscn")
 onready var player = get_parent().get_node("player")
-onready var hp_bar = get_node("HpBar")
+onready var blood_one = get_node("BloodOne")
+onready var blood_two = get_node("BloodTwo")
+onready var blood_death = get_node("BloodDeath")
+
 
 export (int) var detect_radius
 var vis_color = Color(.867, .91, .247, 0.1)
@@ -27,6 +30,8 @@ var starting_position
 
 var hit_position
 
+var death = false
+
 enum {
 	Rest,
 	Attack,
@@ -39,8 +44,7 @@ var state:int = Rest
 
 func _ready():
 	starting_position = get_global_position()
-	get_node("ShootWeaponTime").wait_time = 0.2
-	get_node("Sprite").self_modulate.r = 30
+	get_node("ShootWeaponTime").wait_time = 0.4
 	var shape = CircleShape2D.new()
 	shape.radius = detect_radius
 	get_node("Visibility/CollisionShape2D").shape = shape
@@ -53,7 +57,7 @@ func init_weapon():
 	add_child(weapon_instance)
 	weapon_instance._ini(self,"AK47",
 		load("res://arts/weapon/gun-01.png"),
-		1,500,1,700,0,36,10
+		1,500,1,700,0,36,20
 	)
 	weapon_instance.position.x = 113.265
 	weapon_instance.position.y = 40.115
@@ -62,49 +66,59 @@ func init_weapon():
 
 
 func onHit(damage):
-	current_hp -= damage
-	_hpBarUpdate()
-	if current_hp <= 0:
-		_onDeath()
+	if !death:
+		current_hp -= damage
+		_animationBlood()
+		if current_hp <= 0:
+			_onDeath()
 
 
-func _hpBarUpdate():
-	percentage_hp = int((float(current_hp) / max_hp) * 100)
-	hp_bar.value = percentage_hp
-	if percentage_hp >= 60:
-		hp_bar.set_tint_progress("14e114")
-	elif percentage_hp <= 60 and percentage_hp >= 25:
-		hp_bar.set_tint_progress("e1be32")
-	else:
-		hp_bar.set_tint_progress("e11e1e")
+func _animationBlood():
+	blood_one.visible = true
+	blood_two.visible = true
+	blood_one.play("blood1")
+	blood_two.play("blood2")
+	yield(get_tree().create_timer(0.5), "timeout")
+	blood_one.visible = false
+	blood_two.visible = false
+	blood_one.stop()
+	blood_two.stop()
 
-		
+
 func _onDeath():
-	print("Death..")
-	get_node("Visibility/CollisionShape2D")
-	.set_deferred("desabled", true)
-	get_node("HpBar").hide()
-	queue_free()
+	get_node("Visibility/CollisionShape2D").set_deferred("desabled", true)
+	get_node("Collision").set_deferred("desabled", true)
+	get_node("Sprite").visible = false
+	weapon_instance.visible = false
+	blood_death.visible = true
+	blood_death.play("blodedeath")
+	yield(get_tree().create_timer(0.6), "timeout")
+	blood_death.stop()
+	death = true
 
 
 func _process(_delta):
-	match state:
-		Rest:
-			pass
-		Attack:
-			if can_shoot:
-				weapon_instance.shoot(player.position)
-		Search:
-			_search(_delta)
-		Return:
-			yield(get_tree().create_timer(3), "timeout")
-			if state == 3:
-				_returnToStartingPoint(_delta)
+	if death:
+		return
+	else:
+		match state:
+			Rest:
+				pass
+			Attack:
+				if can_shoot:
+					weapon_instance.shoot(player.position)
+			Search:
+				_search(_delta)
+			Return:
+				yield(get_tree().create_timer(3), "timeout")
+				if state == 3:
+					_returnToStartingPoint(_delta)
 
 
 func _physics_process(_delta):
-	_sightCheck()
-	update()
+	if !death:
+		_sightCheck()
+		update()
 
 
 func _search(delta):
@@ -167,11 +181,12 @@ func _sightCheck():
 					
 
 func _draw():
+	"""
 	draw_circle(Vector2(0, 0), detect_radius, vis_color)
 	if player_in_range:
 		draw_circle((hit_position - position).rotated(-rotation), 5, laser_color)
 		draw_line(Vector2(), (hit_position - position).rotated(-rotation), laser_color)
-
+	"""
 
 
 func _on_Visibility_body_entered(_body):
