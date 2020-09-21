@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-onready var map_navigation = get_parent().get_node("../Environment/Navigator/Navigation2D")
+#onready var map_navigation = get_parent().get_node("../Environment/Navigator/Navigation2D")
+onready var map_navigation = get_parent().get_node("../Environment/test/Navigation2D")
 onready var weapon = preload("res://src/scenes/weapons/weapon.tscn")
 onready var player = get_parent().get_node("player")
 onready var blood_one = get_node("BloodOne")
