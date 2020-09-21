@@ -88,12 +88,14 @@ func shoot(pos):
 			
 			var owner_bullet = "Enemy" if ENEMY else "Player"
 			
-			bullet_instance._ini(
-				owner_bullet,target,rand_range(BULLET_SPEED*0.9, BULLET_SPEED*1.1),
-				weapon_position, weapon_rotation, SHOOT_RAGE, 
-				DAMAGE, KNOCKBACK,BULLET_SIZE)
-			
-			get_node("BulletContainer").add_child(bullet_instance)
+			if (owner_bullet == "Player" and picked) or owner_bullet == "Enemy":
+				
+				bullet_instance._ini(
+					owner_bullet,target,rand_range(BULLET_SPEED*0.9, BULLET_SPEED*1.1),
+					weapon_position, weapon_rotation, SHOOT_RAGE, 
+					DAMAGE, KNOCKBACK,BULLET_SIZE)
+				
+				get_node("BulletContainer").add_child(bullet_instance)
 			
 			if PLAYER:
 				SLOT -= 1

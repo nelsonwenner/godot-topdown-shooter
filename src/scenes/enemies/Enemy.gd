@@ -181,19 +181,17 @@ func _sightCheck():
 					
 
 func _draw():
-	"""
 	draw_circle(Vector2(0, 0), detect_radius, vis_color)
 	if player_in_range:
 		draw_circle((hit_position - position).rotated(-rotation), 5, laser_color)
 		draw_line(Vector2(), (hit_position - position).rotated(-rotation), laser_color)
-	"""
-
+	
 
 func _on_Visibility_body_entered(_body):
 	if _body == player:
 		player_in_range = true
 			
-	
+
 func _on_Visibility_body_exited(_body):
 	if _body == player:
 		player_in_range = false
