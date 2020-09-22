@@ -13,7 +13,8 @@ func _ready():
 func _process(_delta):
 	#shadow_dir = get_viewport().size / 2.0 - get_global_mouse_position()
 	#print("shadow => ", shadow_dir)
-	shadow_dir = Vector2(4.1, 13.0)
+	#shadow_dir = Vector2(4.1, 13.0)
+	shadow_dir = Vector2(19.999939, 11.999969)
 	update()
 
 func _draw():
@@ -24,11 +25,11 @@ func _draw():
 		var next_vertice = vertices[(vertice_ind + 1) % num_of_vertices]
 		var normal = (next_vertice - vertice).normalized().rotated(PI / 2.0)
 		
-		if flag:
+		#if flag:
+			#draw_polygon(PoolVector2Array([vertice, vertice + shadow_dir, next_vertice]), PoolColorArray([shadow_color, shadow_end_color, shadow_color]))
+			#draw_polygon(PoolVector2Array([next_vertice, next_vertice + shadow_dir, vertice + shadow_dir]), PoolColorArray([shadow_color, shadow_end_color, shadow_end_color]))
+			
+		#else:
+		if shadow_dir.dot(normal) < 200:
 			draw_polygon(PoolVector2Array([vertice, vertice + shadow_dir, next_vertice]), PoolColorArray([shadow_color, shadow_end_color, shadow_color]))
 			draw_polygon(PoolVector2Array([next_vertice, next_vertice + shadow_dir, vertice + shadow_dir]), PoolColorArray([shadow_color, shadow_end_color, shadow_end_color]))
-			
-		else:
-			if shadow_dir.dot(normal) > 0:
-				draw_polygon(PoolVector2Array([vertice, vertice + shadow_dir, next_vertice]), PoolColorArray([shadow_color, shadow_end_color, shadow_color]))
-				draw_polygon(PoolVector2Array([next_vertice, next_vertice + shadow_dir, vertice + shadow_dir]), PoolColorArray([shadow_color, shadow_end_color, shadow_end_color]))

@@ -112,6 +112,7 @@ func shoot(pos):
 func _pick(picker_current, player_position_hand):
 	player_hand = picker_current.get_node(player_position_hand)
 	position = picker_current.get_global_position()
+	z_index = 3
 	picked = true
 
 
