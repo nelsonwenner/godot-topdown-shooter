@@ -91,15 +91,16 @@ func _animationBlood():
 func _onDeath():
 	get_node("Visibility/CollisionShape2D").set_deferred("desabled", true)
 	get_node("Collision").set_deferred("desabled", true)
+	get_node(".").collision_mask = false
 	get_node("Sprite").visible = false
 	weapon_instance.visible = false
 	blood_death.visible = true
 	blood_death.play("blodedeath")
 	yield(get_tree().create_timer(0.6), "timeout")
 	blood_death.stop()
-	get_node(".").collision_mask = false
+	get_node("DeadEnemyTime").start()
 	death = true
-
+	
 
 func _process(_delta):
 	if death:
@@ -205,3 +206,8 @@ func _on_Visibility_body_exited(_body):
 
 func _on_ShootWeaponTime_timeout():
 	can_shoot = true
+
+
+func _on_DeadEnemyTime_timeout():
+	if death:
+		queue_free()

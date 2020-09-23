@@ -57,6 +57,9 @@ shape = SubResource( 1 )
 
 [node name="ShootWeaponTime" type="Timer" parent="."]
 
+[node name="DeadEnemyTime" type="Timer" parent="."]
+wait_time = 120.0
+
 [node name="Visibility" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visibility"]
@@ -83,5 +86,6 @@ frames = SubResource( 2 )
 animation = "blodedeath"
 frame = 4
 [connection signal="timeout" from="ShootWeaponTime" to="." method="_on_ShootWeaponTime_timeout"]
+[connection signal="timeout" from="DeadEnemyTime" to="." method="_on_DeadEnemyTime_timeout"]
 [connection signal="body_entered" from="Visibility" to="." method="_on_Visibility_body_entered"]
 [connection signal="body_exited" from="Visibility" to="." method="_on_Visibility_body_exited"]

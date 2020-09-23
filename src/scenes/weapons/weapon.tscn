@@ -48,6 +48,7 @@ position = Vector2( 356.76, 0 )
 scale = Vector2( 10, 10 )
 
 [node name="AnimatedShoot" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 407.134, -18.2549 )
 scale = Vector2( 6, 8 )
 frames = SubResource( 2 )

@@ -131,10 +131,12 @@ func _reload():
 		
 
 func _animationShoot():
+	get_node("AnimatedShoot").visible = true
 	get_node("AnimatedShoot").play('flash')
 	yield(get_tree().create_timer(0.3), "timeout")
 	get_node("AnimatedShoot").stop()
 	get_node("AnimatedShoot").frame = 5
+	get_node("AnimatedShoot").visible = false
 
 		
 func _update_canvas_munition():
