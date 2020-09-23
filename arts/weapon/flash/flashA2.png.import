@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gun-01.png-0d6e7058941a94627f6974db9ff63352.stex"
+path="res://.import/flashA2.png-e8dabb34432bfac0c5683ef2602904c1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://arts/weapon/gun-01.png"
-dest_files=[ "res://.import/gun-01.png-0d6e7058941a94627f6974db9ff63352.stex" ]
+source_file="res://arts/weapon/flash/flashA2.png"
+dest_files=[ "res://.import/flashA2.png-e8dabb34432bfac0c5683ef2602904c1.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

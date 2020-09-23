@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Ellipse 1.png-acec9a0515f950c34f22bc738a62c83e.stex"
+path="res://.import/flashA6.png-d819e734dc534f1cd74405e31034722a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://arts/healthbar/Ellipse 1.png"
-dest_files=[ "res://.import/Ellipse 1.png-acec9a0515f950c34f22bc738a62c83e.stex" ]
+source_file="res://arts/weapon/flash/flashA6.png"
+dest_files=[ "res://.import/flashA6.png-d819e734dc534f1cd74405e31034722a.stex" ]
 
 [params]
 

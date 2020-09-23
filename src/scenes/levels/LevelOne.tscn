@@ -104,6 +104,7 @@ collision_mask = 0
 polygon = PoolVector2Array( 782.863, 178.604, 782.069, 289.722, 1140.03, 290.516, 1291.62, 391.316, 1290.83, 445.287, 1467.83, 447.668, 1469.41, 372.267, 1218.6, 179.398 )
 
 [node name="shadown" parent="Environment/Balconies/balcone1" instance=ExtResource( 3 )]
+visible = false
 
 [node name="balcone2" type="Polygon2D" parent="Environment/Balconies"]
 position = Vector2( 738.933, 257.465 )
@@ -119,6 +120,7 @@ collision_mask = 0
 polygon = PoolVector2Array( 597.94, 635.837, 596.258, 726.233, 719.029, 726.233, 778.312, 670.734, 896.038, 671.575, 894.356, 576.553, 750.142, 577.394, 691.28, 636.257 )
 
 [node name="shadown" parent="Environment/Balconies/balcone2" instance=ExtResource( 3 )]
+visible = false
 
 [node name="balcone3" type="Polygon2D" parent="Environment/Balconies"]
 position = Vector2( 1532.79, -519.069 )
@@ -135,6 +137,7 @@ collision_mask = 0
 polygon = PoolVector2Array( 596.834, 726.08, 718.975, 725.077, 777.851, 672.511, 895.987, 671.497, 894.904, 578.722, 746.74, 577.652, 688.509, 638.23, 597.077, 636.646 )
 
 [node name="shadown" parent="Environment/Balconies/balcone3" instance=ExtResource( 3 )]
+visible = false
 
 [node name="Walls" type="Node2D" parent="Environment"]
 position = Vector2( -32.0917, 0 )
@@ -159,6 +162,7 @@ __meta__ = {
 }
 
 [node name="Shadown" parent="Environment/Walls/ShadedAllPoly2" instance=ExtResource( 3 )]
+visible = false
 
 [node name="Navigator" type="Node2D" parent="Environment"]
 visible = false

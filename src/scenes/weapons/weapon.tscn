@@ -1,10 +1,24 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://arts/weapon/gun-01.png" type="Texture" id=1]
 [ext_resource path="res://src/scenes/weapons/weapon.gd" type="Script" id=2]
+[ext_resource path="res://arts/weapon/flash/flashA1.png" type="Texture" id=3]
+[ext_resource path="res://arts/weapon/flash/flashA3.png" type="Texture" id=4]
+[ext_resource path="res://arts/weapon/flash/flashA4.png" type="Texture" id=5]
+[ext_resource path="res://arts/weapon/flash/flashA5.png" type="Texture" id=6]
+[ext_resource path="res://arts/weapon/flash/flashA6.png" type="Texture" id=7]
+[ext_resource path="res://arts/weapon/flash/flashA2.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 358.485, 31.6679 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 8 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "flash",
+"speed": 5.0
+} ]
 
 [node name="Weapon" type="Area2D"]
 scale = Vector2( 0.1, 0.1 )
@@ -32,6 +46,13 @@ shape = SubResource( 1 )
 [node name="WeaponPosition" type="Position2D" parent="."]
 position = Vector2( 356.76, 0 )
 scale = Vector2( 10, 10 )
+
+[node name="AnimatedShoot" type="AnimatedSprite" parent="."]
+position = Vector2( 407.134, -18.2549 )
+scale = Vector2( 6, 8 )
+frames = SubResource( 2 )
+animation = "flash"
+frame = 5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

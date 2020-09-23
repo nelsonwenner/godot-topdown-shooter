@@ -104,9 +104,11 @@ func shoot(pos):
 		if PLAYER:
 			can_shoot = false
 			get_node("ShootWeaponTime").start()
+			_animationShoot()
 		else:
 			ENEMY.can_shoot = false
 			ENEMY.get_node('ShootWeaponTime').start()
+			_animationShoot()
 			
 
 func _pick(picker_current, player_position_hand):
@@ -127,6 +129,13 @@ func _reload():
 		get_node("ReloadWeaponTime").start()
 		print("reload...")
 		
+
+func _animationShoot():
+	get_node("AnimatedShoot").play('flash')
+	yield(get_tree().create_timer(0.3), "timeout")
+	get_node("AnimatedShoot").stop()
+	get_node("AnimatedShoot").frame = 5
+
 		
 func _update_canvas_munition():
 	get_node("CanvasLayer/munition").text = str(SLOT) + "/" + str(MAX_SLOT)

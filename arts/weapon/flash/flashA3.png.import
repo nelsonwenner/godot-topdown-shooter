@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player-health-bar-over.png-0b672a5f6966b9b9c9c7249955986fe3.stex"
+path="res://.import/flashA3.png-3927d149a49311249f67413798a17dd1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://arts/healthbar/player-health-bar-over.png"
-dest_files=[ "res://.import/player-health-bar-over.png-0b672a5f6966b9b9c9c7249955986fe3.stex" ]
+source_file="res://arts/weapon/flash/flashA3.png"
+dest_files=[ "res://.import/flashA3.png-3927d149a49311249f67413798a17dd1.stex" ]
 
 [params]
 

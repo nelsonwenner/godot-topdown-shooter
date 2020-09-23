@@ -84,6 +84,8 @@ func _animationBlood():
 	blood_two.visible = false
 	blood_one.stop()
 	blood_two.stop()
+	blood_one.frame = 0
+	blood_two.frame = 0
 
 
 func _onDeath():
@@ -95,6 +97,7 @@ func _onDeath():
 	blood_death.play("blodedeath")
 	yield(get_tree().create_timer(0.6), "timeout")
 	blood_death.stop()
+	get_node(".").collision_mask = false
 	death = true
 
 
