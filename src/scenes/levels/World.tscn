@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/scenes/levels/World.gd" type="Script" id=1]
 [ext_resource path="res://arts/environments/floor.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://src/objects/environments/balcone5.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/objects/environments/balcone6.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/objects/environments/balcone7.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/objects/items/ammunition/Ammunition.tscn" type="PackedScene" id=13]
 
 [sub_resource type="TileSet" id=1]
 0/name = "floor.png 0"
@@ -271,3 +272,9 @@ position = Vector2( 498.929, 297.341 )
 
 [node name="Weapon" parent="Items" instance=ExtResource( 5 )]
 position = Vector2( 492.629, 176.389 )
+
+[node name="Ammunition" parent="Items" instance=ExtResource( 13 )]
+position = Vector2( 496.128, 2.245 )
+
+[node name="Ammunition2" parent="Items" instance=ExtResource( 13 )]
+position = Vector2( 487.148, -190.819 )

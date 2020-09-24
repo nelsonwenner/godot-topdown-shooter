@@ -10,7 +10,7 @@ var owner_bullet
 
 const collisions = ['Wall', 'Balcone']
 
-func _ini(owner,direction,velocity,pos,rota,distance,damage,knockb,size):
+func init(owner,direction,velocity,pos,rota,distance,damage,knockb,size):
 	scale = Vector2(size,size)
 	DAMAGE = damage
 	origin = pos

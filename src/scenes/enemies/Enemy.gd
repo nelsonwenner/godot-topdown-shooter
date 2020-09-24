@@ -55,16 +55,17 @@ func _ready():
 
 func init_weapon():
 	weapon_instance = weapon.instance()
-	add_child(weapon_instance)
-	weapon_instance._ini(self,"AK47",
+	weapon_instance.init(self,"AK47",
 		load("res://arts/weapon/gun-01.png"),
 		1,500,1,700,0,36,20
 	)
+	add_child(weapon_instance)
+
 	weapon_instance.position.x = 113.265
 	weapon_instance.position.y = 40.115
 	weapon_instance.scale.x = 1
 	weapon_instance.scale.y = 1
-
+	
 
 func onHit(damage):
 	if !death:
