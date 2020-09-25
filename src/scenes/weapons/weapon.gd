@@ -14,7 +14,7 @@ var BULLETS = 1
 var DAMAGE = 50
 
 var SHOOT_WEAPON_TIME = 0.3
-var RELOAD_WEAPON_TIME = 2.5
+var RELOAD_WEAPON_TIME = 2
 
 var AMMUNITION = 0
 var MAX_SLOT = 36
@@ -138,10 +138,12 @@ func _add_weapon_in_player():
 
 func _reload():
 	if Input.is_action_just_pressed("reload") && SLOT <= 0:
+		var animatedReload = PLAYER.get_node("AnimatedSprite")
+		animatedReload.set_animation("reload")
+		animatedReload.play("reload")
 		get_node("ReloadWeaponTime").start()
-		print("reload...")
-		
 
+		
 func _animationShoot():
 	get_node("AnimatedShoot").visible = true
 	get_node("AnimatedShoot").play('flash')
@@ -191,4 +193,7 @@ func _on_reload_weapon_time_timeout():
 		SLOT = MAX_SLOT
 		AMMUNITION -= MAX_SLOT
 		_update_canvas_munition()
+		var animatedReload = PLAYER.get_node("AnimatedSprite")
+		animatedReload.set_animation("idle")
+		animatedReload.stop()
 		get_node("ReloadWeaponTime").stop()

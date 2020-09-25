@@ -1,9 +1,17 @@
-extends KinematicBody2D
+extends "res://scripts/Actor.gd"
 
 var SPEED = 130
+var max_hp = 400
+
+
+func _ready():
+	self.current_hp = max_hp
 
 
 func _process(_delta):
+	if self.death:
+		print("Player death!!")
+		return
 	look_at(get_global_mouse_position())
 
 
@@ -21,3 +29,8 @@ func _physics_process(_delta):
 			
 	motion = motion.normalized()
 	motion = move_and_slide(motion * SPEED)
+
+
+func onDeath():
+	self.death = true
+	.onDeath()

@@ -41,6 +41,7 @@ shape = SubResource( 1 )
 [node name="ShootWeaponTime" type="Timer" parent="."]
 
 [node name="ReloadWeaponTime" type="Timer" parent="."]
+wait_time = 0.001
 
 [node name="BulletContainer" type="Node" parent="."]
 
