@@ -11,18 +11,15 @@ func _ready():
 
 
 func _process(_delta):
-	"""
-	if self.death:
-		print("Player death!!")
+	if self.death: 
+		PlayerData.losers += 1
 		self.hide()
-		return
-	"""
+	
 	look_at(get_global_mouse_position())
 
 
 func _physics_process(_delta):
-	#if self.death: return
-		
+	
 	var motion = Vector2(0,0)
 	
 	if Input.is_action_pressed("player_up"):
@@ -37,11 +34,10 @@ func _physics_process(_delta):
 	motion = motion.normalized()
 	motion = move_and_slide(motion * SPEED)
 
-"""
+
 func onDeath():
 	self.death = true
 	.onDeath()
-"""
 
 
 func animationHit(damage):
