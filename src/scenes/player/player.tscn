@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://arts/player/characters/main-character-sprite.png" type="Texture" id=1]
 [ext_resource path="res://src/scenes/player/player.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://arts/player/characters/main-character-reload-animation/main-character-reload-sprite-07.png" type="Texture" id=7]
 [ext_resource path="res://arts/player/characters/main-character-reload-animation/main-character-reload-sprite-01.png" type="Texture" id=8]
 [ext_resource path="res://arts/player/characters/main-character-reload-animation/main-character-reload-sprite-05.png" type="Texture" id=9]
+[ext_resource path="res://src/HUD/healthbar/HealthBar.tscn" type="PackedScene" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -48,5 +49,9 @@ scale = Vector2( 10, 10 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.8, 0.8 )
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
+editor_draw_drag_margin = true
+
+[node name="Info" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" parent="Info" instance=ExtResource( 10 )]
+value = 100.0

@@ -1,11 +1,9 @@
 extends Area2D
 
-onready var weapon = get_tree().current_scene.get_node('Items/Weapon')
+onready var weapon = get_tree().get_root().get_node('/root/' + get_tree().current_scene.name + '/Items/Weapon')
 
 func _on_Ammunition_body_entered(_body):
-	var bodies = get_node(".").get_overlapping_bodies()
-	for body in bodies:
-		if body.name == "player":
-			if weapon.WEAPON_TYPE == "AK47":
-				weapon.add_ammunition(36)
-			queue_free()
+	if not _body.is_in_group('Player'): return
+	if weapon.WEAPON_TYPE == "AK47":
+		weapon.add_ammunition(36)
+	queue_free()

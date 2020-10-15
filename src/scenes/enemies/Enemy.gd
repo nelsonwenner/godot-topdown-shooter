@@ -3,6 +3,7 @@ extends "res://scripts/Actor.gd"
 #onready var map_navigation = get_parent().get_node("../Environment/Navigator/Navigation2D")
 onready var map_navigation = get_parent().get_node("../Environment/test/Navigation2D")
 onready var weapon = preload("res://src/scenes/weapons/weapon.tscn")
+onready var positionWeapon = get_node("EnemyPositionWeapon")
 onready var player = get_parent().get_node("player")
 onready var blood_one = get_node("BloodOne")
 onready var blood_two = get_node("BloodTwo")
@@ -55,9 +56,7 @@ func init_weapon():
 		1,500,1,700,0,36,20
 	)
 	add_child(weapon_instance)
-
-	weapon_instance.position.x = 113.265
-	weapon_instance.position.y = 40.115
+	weapon_instance.position = positionWeapon.position
 	weapon_instance.scale.x = 1
 	weapon_instance.scale.y = 1
 	
@@ -146,13 +145,15 @@ func _sightCheck():
 					
 
 func _draw():
+	"""
 	draw_circle(Vector2(0, 0), detect_radius, vis_color)
 	if player_in_range:
 		draw_circle((hit_position - position).rotated(-rotation), 5, laser_color)
 		draw_line(Vector2(), (hit_position - position).rotated(-rotation), laser_color)
+	"""
 
 
-func animationHit():
+func animationHit(damage):
 	blood_one.visible = true
 	blood_two.visible = true
 	blood_one.play("blood1")
@@ -164,7 +165,7 @@ func animationHit():
 	blood_two.stop()
 	blood_one.frame = 0
 	blood_two.frame = 0
-	.animationHit()
+	.animationHit(damage)
 	
 
 func onDeath():

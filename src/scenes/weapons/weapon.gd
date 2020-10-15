@@ -131,13 +131,14 @@ func _pick(picker_current, player_position_hand):
 
 
 func _add_weapon_in_player():
+		if PLAYER.death: queue_free()
 		position = player_hand.get_global_position() + Vector2(0, 0).rotated(rotation)
 		rotation = player_hand.get_global_rotation()
 		_reload()
 
 
 func _reload():
-	if Input.is_action_just_pressed("reload") && SLOT <= 0:
+	if Input.is_action_just_pressed("reload") and SLOT <= 0 and AMMUNITION > 0:
 		var animatedReload = PLAYER.get_node("AnimatedSprite")
 		animatedReload.set_animation("reload")
 		animatedReload.play("reload")
@@ -189,11 +190,10 @@ func _on_Weapon_body_exited(_body):
 
 
 func _on_reload_weapon_time_timeout():
-	if AMMUNITION > 0:
-		SLOT = MAX_SLOT
-		AMMUNITION -= MAX_SLOT
-		_update_canvas_munition()
-		var animatedReload = PLAYER.get_node("AnimatedSprite")
-		animatedReload.set_animation("idle")
-		animatedReload.stop()
-		get_node("ReloadWeaponTime").stop()
+	SLOT = MAX_SLOT
+	AMMUNITION -= MAX_SLOT
+	_update_canvas_munition()
+	var animatedReload = PLAYER.get_node("AnimatedSprite")
+	animatedReload.set_animation("idle")
+	animatedReload.stop()
+	get_node("ReloadWeaponTime").stop()
