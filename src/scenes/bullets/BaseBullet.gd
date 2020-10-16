@@ -7,6 +7,7 @@ var KNOCKBACK = 0
 var SPEED = 800
 var DAMAGE = 50
 var owner_bullet
+var stray = 0.3
 
 const collisions = ['Wall', 'Balcone']
 
@@ -24,6 +25,11 @@ func init(owner,direction,velocity,pos,rota,distance,damage,knockb,size):
 
 
 func _ready():
+	if owner_bullet == "Boss":
+		get_node("Sprite").visible = false
+		get_node("bulletBoss").visible = true
+		owner_bullet = "Enemy"
+		
 	scale.x = 0.25
 	scale.y = 0.25
 	

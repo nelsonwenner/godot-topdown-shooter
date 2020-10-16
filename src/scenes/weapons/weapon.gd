@@ -101,6 +101,10 @@ func shoot(pos):
 			
 			if (owner_bullet == "Player" and picked) or owner_bullet == "Enemy":
 				
+				if ENEMY and (ENEMY.name == "Boss"):
+					target = target.rotated(rand_range(bullet_instance.stray*-1,bullet_instance.stray))
+					owner_bullet = "Boss"
+					
 				bullet_instance.init(
 					owner_bullet,target,rand_range(BULLET_SPEED*0.9, BULLET_SPEED*1.1),
 					weapon_position, weapon_rotation, SHOOT_RAGE, 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/scenes/levels/World.gd" type="Script" id=1]
 [ext_resource path="res://arts/environments/floor.png" type="Texture" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://src/objects/environments/balcone6.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/objects/environments/balcone7.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/objects/items/ammunition/Ammunition.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src/scenes/boss/Boss.tscn" type="PackedScene" id=14]
+[ext_resource path="res://src/objects/screens/Pause.tscn" type="PackedScene" id=15]
 
 [sub_resource type="TileSet" id=1]
 0/name = "floor.png 0"
@@ -36,9 +38,9 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color( 0.176471, 0.168627, 0.168627, 1 )
+[node name="Menu" type="CanvasLayer" parent="."]
+
+[node name="Pause" parent="Menu" instance=ExtResource( 15 )]
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -270,15 +272,19 @@ visible = false
 [node name="Characters" type="Node2D" parent="."]
 
 [node name="player" parent="Characters" instance=ExtResource( 3 )]
-position = Vector2( 498.929, 297.341 )
+position = Vector2( -855.052, -4090.47 )
+
+[node name="Boss" parent="Characters" instance=ExtResource( 14 )]
+position = Vector2( -880.747, -4983.15 )
+detect_radius = 2500
 
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Weapon" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 492.629, 176.389 )
+position = Vector2( -872.565, -4375.08 )
 
 [node name="Ammunition" parent="Items" instance=ExtResource( 13 )]
-position = Vector2( 496.128, 2.245 )
+position = Vector2( -837.289, -4483.75 )
 
 [node name="Ammunition2" parent="Items" instance=ExtResource( 13 )]
 position = Vector2( 487.148, -190.819 )

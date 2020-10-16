@@ -1,5 +1,6 @@
 extends "res://scripts/Actor.gd"
 
+export (int) var detect_radius
 #onready var map_navigation = get_parent().get_node("../Environment/Navigator/Navigation2D")
 onready var map_navigation = get_parent().get_node("../Environment/test/Navigation2D")
 onready var weapon = preload("res://src/scenes/weapons/weapon.tscn")
@@ -9,7 +10,6 @@ onready var blood_one = get_node("BloodOne")
 onready var blood_two = get_node("BloodTwo")
 onready var blood_death = get_node("BloodDeath")
 
-export (int) var detect_radius
 var vis_color = Color(.867, .91, .247, 0.1)
 var laser_color = Color(1.0, .329, .298)
 

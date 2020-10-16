@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/scenes/boss/Boss.gd" type="Script" id=1]
+[ext_resource path="res://arts/boss/boss.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 331.131
+
+[node name="Boss" type="KinematicBody2D" groups=[
+"Enemies",
+]]
+scale = Vector2( 0.2, 0.18 )
+z_index = 3
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 1 )
+detect_radius = 2000
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( -25.0282, 0 )
+shape = SubResource( 1 )
+
+[node name="BossPositionWeapon" type="Position2D" parent="."]
+position = Vector2( -50, -100.315 )
+scale = Vector2( 10, 10 )
+
+[node name="Detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+
+[node name="ShootWeaponTime" type="Timer" parent="."]
+[connection signal="body_entered" from="Detection" to="." method="_on_Detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_Detection_body_exited"]
+[connection signal="timeout" from="ShootWeaponTime" to="." method="_on_ShootWeaponTime_timeout"]

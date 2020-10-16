@@ -1,6 +1,10 @@
 extends "res://scripts/Actor.gd"
 
 onready var health_bar = get_node("Info/HealthBar")
+onready var blood_death = get_node("BloodDeath")
+onready var blood_one = get_node("BloodOne")
+onready var blood_two = get_node("BloodTwo")
+
 
 var SPEED = 130
 var max_hp = 400
@@ -42,6 +46,17 @@ func onDeath():
 
 func animationHit(damage):
 	health_bar.value = int((float(self.current_hp) / max_hp) * 100)
+	blood_one.visible = true
+	blood_two.visible = true
+	blood_one.play("blood1")
+	blood_two.play("blood2")
+	yield(get_tree().create_timer(0.5), "timeout")
+	blood_one.visible = false
+	blood_two.visible = false
+	blood_one.stop()
+	blood_two.stop()
+	blood_one.frame = 0
+	blood_two.frame = 0
 	.animationHit(damage)
 	
 	
