@@ -81,7 +81,7 @@ detect_radius = 10000
 [node name="AnimatedWave" type="AnimatedSprite" parent="."]
 z_index = 3
 frames = SubResource( 4 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]

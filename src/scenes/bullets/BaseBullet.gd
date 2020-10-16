@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+onready var bullet_impact = preload("res://src/scenes/bullets/BulletImpact.tscn")
+
 var origin = Vector2(0,0)
 var dir = Vector2(0,0)
 var max_distance = -1
@@ -10,6 +12,8 @@ var owner_bullet
 var stray = 0.3
 
 const collisions = ['Wall', 'Balcone']
+
+var is_boss = false
 
 func init(owner,direction,velocity,pos,rota,distance,damage,knockb,size):
 	scale = Vector2(size,size)
@@ -29,9 +33,10 @@ func _ready():
 		get_node("Sprite").visible = false
 		get_node("bulletBoss").visible = true
 		owner_bullet = "Enemy"
+		is_boss = true
 		
-	scale.x = 0.25
-	scale.y = 0.25
+	scale.x = 0.20
+	scale.y = 0.20
 	
 
 func _physics_process(_delta):
@@ -46,13 +51,24 @@ func _on_Area_body_entered(_body):
 	for body in bodies:
 		if body.name in collisions:
 			print("Bullet Destroyed in: ", body.name)
+			if is_boss:
+				queue_free()
+			bulletImpact()
 			queue_free()
 			
 	if _body.is_in_group("Enemies") and owner_bullet == "Player":
 		_body.onHit(DAMAGE)
-		self.hide()
-		print("Hit! => ", owner_bullet)
+		bulletImpact()
+		queue_free()
+		#print("Hit! => ", owner_bullet)
 	elif _body.is_in_group("Player") and owner_bullet == "Enemy":
 		_body.onHit(DAMAGE)
 		self.hide()
 		print("Hit! => ", owner_bullet)
+
+
+func bulletImpact():
+	var particle = bullet_impact.instance()
+	particle.global_position = global_position
+	get_parent().add_child(particle)
+	particle.z_index = 100

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/scenes/boss/Boss.gd" type="Script" id=1]
 [ext_resource path="res://arts/boss/boss.png" type="Texture" id=2]
+[ext_resource path="res://src/objects/items/explosion/explode.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 331.131
@@ -32,6 +33,10 @@ scale = Vector2( 10, 10 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
 
 [node name="ShootWeaponTime" type="Timer" parent="."]
+
+[node name="Explode" parent="." instance=ExtResource( 3 )]
+position = Vector2( -111.488, 9.91013 )
+scale = Vector2( 5.91787, 5.34941 )
 [connection signal="body_entered" from="Detection" to="." method="_on_Detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_Detection_body_exited"]
 [connection signal="timeout" from="ShootWeaponTime" to="." method="_on_ShootWeaponTime_timeout"]

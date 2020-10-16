@@ -48,6 +48,7 @@ func init_weapon():
 
 func _process(_delta):
 	if self.death:
+		self.modulate = '432222'
 		return
 	else:
 		match state:
@@ -81,9 +82,11 @@ func onDeath():
 	get_node("Detection/CollisionShape2D").set_deferred("desabled", true)
 	get_node("Collision").set_deferred("desabled", true)
 	get_node(".").collision_mask = false
+	get_node("Explode").play("explode")
+	yield(get_tree().create_timer(1), "timeout")
 	self.death = true
 	.onDeath()
-
+	
 
 func _on_Detection_body_entered(_body):
 	if _body == player:

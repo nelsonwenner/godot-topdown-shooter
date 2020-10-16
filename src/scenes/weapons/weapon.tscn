@@ -52,10 +52,10 @@ scale = Vector2( 10, 10 )
 [node name="AnimatedShoot" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 407.134, -18.2549 )
-scale = Vector2( 6, 8 )
+scale = Vector2( 6, 10 )
 frames = SubResource( 2 )
 animation = "flash"
-frame = 5
+frame = 3
 
 [node name="WeaponInfo" parent="." instance=ExtResource( 9 )]
 [connection signal="body_entered" from="." to="." method="_on_weapon_body_entered"]
