@@ -24,7 +24,7 @@ polygon = PoolVector2Array( -66.1577, -0.808481, -46.4925, -2.68137, -20.0848, -
 
 [node name="bulletBoss" type="MeshInstance2D" parent="."]
 visible = false
-modulate = Color( 0.172549, 0.168627, 0.168627, 1 )
-scale = Vector2( 13, 13 )
+modulate = Color( 0.956863, 0.835294, 0.47451, 1 )
+scale = Vector2( 15, 15 )
 mesh = SubResource( 1 )
 [connection signal="body_entered" from="AreaBulletBody" to="." method="_on_Area_body_entered"]

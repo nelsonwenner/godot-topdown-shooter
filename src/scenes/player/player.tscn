@@ -38,11 +38,6 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 15 ), ExtResource( 12 ), ExtResource( 16 ), ExtResource( 14 ), ExtResource( 13 ) ],
-"loop": true,
-"name": "blodedeath",
-"speed": 8.0
-}, {
 "frames": [ ExtResource( 22 ), ExtResource( 17 ), ExtResource( 21 ), ExtResource( 11 ), ExtResource( 20 ), ExtResource( 18 ) ],
 "loop": true,
 "name": "blood2",
@@ -51,6 +46,11 @@ animations = [ {
 "frames": [ ExtResource( 19 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 12 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "blood1",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 12 ), ExtResource( 16 ), ExtResource( 14 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "blodedeath",
 "speed": 8.0
 } ]
 

@@ -25,7 +25,7 @@
 [ext_resource path="res://arts/enemies/synaptic/synaptic-wave-light-sprite-02.png" type="Texture" id=23]
 [ext_resource path="res://arts/enemies/synaptic/synaptic-wave-light-sprite-08.png" type="Texture" id=24]
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 18 ), ExtResource( 23 ), ExtResource( 4 ), ExtResource( 22 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 5 ), ExtResource( 24 ), ExtResource( 3 ), ExtResource( 19 ) ],
 "loop": true,
@@ -33,13 +33,8 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 13 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "blodedeath",
-"speed": 8.0
-}, {
 "frames": [ ExtResource( 14 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 17 ) ],
 "loop": true,
 "name": "blood2",
@@ -49,9 +44,14 @@ animations = [ {
 "loop": true,
 "name": "blood1",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 13 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "blodedeath",
+"speed": 8.0
 } ]
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 13 ), ExtResource( 15 ) ],
 "loop": true,
@@ -80,8 +80,8 @@ detect_radius = 10000
 
 [node name="AnimatedWave" type="AnimatedSprite" parent="."]
 z_index = 3
-frames = SubResource( 4 )
-frame = 1
+frames = SubResource( 1 )
+frame = 5
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -107,21 +107,21 @@ wait_time = 120.0
 visible = false
 position = Vector2( -122.842, -156.545 )
 scale = Vector2( 0.85546, 0.649985 )
-frames = SubResource( 5 )
+frames = SubResource( 2 )
 animation = "blood1"
 
 [node name="BloodTwo" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( -225.368, 107.881 )
 scale = Vector2( 0.89223, 0.805269 )
-frames = SubResource( 5 )
+frames = SubResource( 2 )
 animation = "blodedeath"
 
 [node name="BloodDeath" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( -257.653, -19.6864 )
 scale = Vector2( 1.86732, 1.60502 )
-frames = SubResource( 5 )
+frames = SubResource( 2 )
 animation = "blodedeath"
 frame = 4
 
@@ -129,7 +129,7 @@ frame = 4
 visible = false
 position = Vector2( -257.653, -19.686 )
 scale = Vector2( 1.867, 1.605 )
-frames = SubResource( 6 )
+frames = SubResource( 3 )
 animation = "bloodDeath"
 [connection signal="timeout" from="ShootWeaponTime" to="." method="_on_ShootWeaponTime_timeout"]
 [connection signal="timeout" from="DeadEnemyTime" to="." method="_on_DeadEnemyTime_timeout"]

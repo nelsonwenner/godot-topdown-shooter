@@ -26,7 +26,7 @@ var state:int = Rest
 
 func _ready():
 	self.current_hp = max_hp
-	get_node("ShootWeaponTime").wait_time = 0.4
+	get_node("ShootWeaponTime").wait_time = 0.3
 	var shape = CircleShape2D.new()
 	shape.radius = detect_radius
 	get_node("Detection/CollisionShape2D").shape = shape
@@ -37,7 +37,7 @@ func init_weapon():
 	weapon_instance = weapon.instance()
 	weapon_instance.init(self,"AK47",
 		load("res://arts/weapon/gun-01.png"),
-		6,500,0,500,1,36,10
+		10,500,0,500,1,36,10
 	)
 	add_child(weapon_instance)
 	weapon_instance.position = positionWeapon.position
@@ -60,6 +60,7 @@ func _process(_delta):
 
 
 func _physics_process(_delta):
+	update()
 	if !self.death:
 		_sightCheck()
 
@@ -80,8 +81,6 @@ func _sightCheck():
 
 func onDeath():
 	get_node("Detection/CollisionShape2D").set_deferred("desabled", true)
-	get_node("Collision").set_deferred("desabled", true)
-	get_node(".").collision_mask = false
 	get_node("Explode").play("explode")
 	yield(get_tree().create_timer(1), "timeout")
 	self.death = true

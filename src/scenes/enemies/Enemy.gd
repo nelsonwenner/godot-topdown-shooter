@@ -1,8 +1,11 @@
 extends "res://scripts/Actor.gd"
 
 export (int) var detect_radius
-#onready var map_navigation = get_parent().get_node("../Environment/Navigator/Navigation2D")
-onready var map_navigation = get_parent().get_node("../Environment/test/Navigation2D")
+export(String) var path_patrol
+export (int) var speed = 120
+
+onready var map_navigation = get_parent().get_node("../Environment/Path/Navigation2D")
+onready var path_follow = get_parent().get_node("../Environment/" + path_patrol)
 onready var weapon = preload("res://src/scenes/weapons/weapon.tscn")
 onready var positionWeapon = get_node("EnemyPositionWeapon")
 onready var player = get_parent().get_node("player")
@@ -10,14 +13,9 @@ onready var blood_one = get_node("BloodOne")
 onready var blood_two = get_node("BloodTwo")
 onready var blood_death = get_node("BloodDeath")
 
-var vis_color = Color(.867, .91, .247, 0.1)
-var laser_color = Color(1.0, .329, .298)
-
 var weapon_instance = null
 
 var can_shoot = true
-
-export (int) var speed = 120
 
 var player_in_range
 var player_in_sight
@@ -29,12 +27,13 @@ var hit_position
 
 enum {
 	Rest,
+	Patrol,
 	Attack,
 	Search,
 	Return
 }
 
-var state:int = Rest
+var state:int = Patrol
 
 var max_hp = 400
 
@@ -68,14 +67,21 @@ func _process(_delta):
 		match state:
 			Rest:
 				pass
+			Patrol:
+				speed = 70
+				path_follow.set_offset(path_follow.get_offset() + speed * _delta)
+				position = path_follow.get_global_position()
 			Attack:
 				if can_shoot:
+					speed = 120
 					weapon_instance.shoot(player.position)
 			Search:
+				speed = 120
 				_search(_delta)
 			Return:
 				yield(get_tree().create_timer(3), "timeout")
-				if state == 3:
+				if state == 4:
+					speed = 120
 					_returnToStartingPoint(_delta)
 
 
@@ -91,16 +97,18 @@ func _search(delta):
 	if path_to_destination.size() == 0:
 		player_seen = false
 		if get_global_position() == starting_position:
-			state = Rest
+			state = Patrol
 		else:
 			state = Return
 	
 
-func _returnToStartingPoint(delta):		
+func _returnToStartingPoint(delta):
 	var path_to_starting_position = _moveAlongPath(delta, starting_position)
 		
 	if path_to_starting_position.size() == 0:
-		state = Rest
+		#clean path_follow
+		path_follow.set_offset(0)
+		state = Patrol
 		
 
 func _moveAlongPath(delta, destination):
@@ -135,23 +143,14 @@ func _sightCheck():
 				state = Attack
 			else:
 				player_in_sight = false
-				if player_seen:
+				if player_seen: 
 					state = Search
 				else:
-					if get_global_position() == starting_position:
-						state = Rest
+					if get_global_position() == starting_position or state == Patrol:
+						state = Patrol
 					else:
 						state = Return
 					
-
-func _draw():
-	"""
-	draw_circle(Vector2(0, 0), detect_radius, vis_color)
-	if player_in_range:
-		draw_circle((hit_position - position).rotated(-rotation), 5, laser_color)
-		draw_line(Vector2(), (hit_position - position).rotated(-rotation), laser_color)
-	"""
-
 
 func animationHit(damage):
 	blood_one.visible = true
