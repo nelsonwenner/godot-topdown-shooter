@@ -34,7 +34,30 @@ func _physics_process(_delta):
 		motion.x += SPEED
 	elif Input.is_action_pressed("player_left"):
 		motion.x -= SPEED
-			
+	
+	if motion == Vector2(0,0):
+		get_node("AnimatedSpriteLegs").animation = 'idle'
+		get_node("AnimatedSpriteLegs").rotation_degrees = 0
+	else:
+		get_node("AnimatedSpriteLegs").rotation_degrees = -rotation_degrees + 90
+		get_node("AnimatedSpriteLegs").animation = 'run'
+		if motion.x > 0:
+			if motion.y > 0:
+				increaseAngleToLegsAnimation(-45)
+			elif motion.y < 0:
+				increaseAngleToLegsAnimation(45)
+			else:
+				increaseAngleToLegsAnimation(-90)
+		elif motion.x < 0:
+			if motion.y > 0:
+				increaseAngleToLegsAnimation(45)
+			elif motion.y < 0:
+				increaseAngleToLegsAnimation(-45)
+			else:
+				increaseAngleToLegsAnimation(90)
+		elif motion.y <= 0:
+			increaseAngleToLegsAnimation(-180)
+	
 	motion = motion.normalized()
 	motion = move_and_slide(motion * SPEED)
 
@@ -64,3 +87,6 @@ func updateHp():
 	self.current_hp = max_hp
 	health_bar.value = 100
 	.updateHp()
+
+func increaseAngleToLegsAnimation(angle):
+	get_node("AnimatedSpriteLegs").rotation_degrees += angle

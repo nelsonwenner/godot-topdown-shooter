@@ -36,7 +36,7 @@ enum {
 var state:int = Patrol
 
 var max_hp = 400
-
+var path_to_destination
 
 func _ready():
 	self.current_hp = max_hp
@@ -46,7 +46,7 @@ func _ready():
 	shape.radius = detect_radius
 	get_node("Visibility/CollisionShape2D").shape = shape
 	init_weapon()
-	
+
 
 func init_weapon():
 	weapon_instance = weapon.instance()
@@ -58,7 +58,7 @@ func init_weapon():
 	weapon_instance.position = positionWeapon.position
 	weapon_instance.scale.x = 1
 	weapon_instance.scale.y = 1
-	
+
 
 func _process(_delta):
 	if self.death:
@@ -66,19 +66,34 @@ func _process(_delta):
 	else:
 		match state:
 			Rest:
-				pass
+				get_node("AnimatedSpriteLegs").animation = 'idle'
+				get_node("AnimatedSpriteLegs").rotation_degrees = 0
 			Patrol:
+				get_node("AnimatedSpriteLegs").animation = 'run'
+				get_node("AnimatedSpriteLegs").rotation_degrees = 0
 				speed = 70
+				var position_before = position
 				path_follow.set_offset(path_follow.get_offset() + speed * _delta)
 				position = path_follow.get_global_position()
+				var relative_path = position - position_before
+				var relative_path_angle = rad2deg(relative_path.angle_to_point(Vector2(0,0)))
+				rotation_degrees = relative_path_angle
 			Attack:
+				get_node("AnimatedSpriteLegs").animation = 'idle'
+				get_node("AnimatedSpriteLegs").rotation_degrees = 0
 				if can_shoot:
 					speed = 120
 					weapon_instance.shoot(player.position)
 			Search:
+				get_node("AnimatedSpriteLegs").animation = 'run'
 				speed = 120
 				_search(_delta)
 			Return:
+				if path_to_destination:
+					get_node("AnimatedSpriteLegs").animation = 'run'
+				else:
+					get_node("AnimatedSpriteLegs").animation = 'idle'
+					get_node("AnimatedSpriteLegs").rotation_degrees = 0
 				yield(get_tree().create_timer(3), "timeout")
 				if state == 4:
 					speed = 120
@@ -89,10 +104,17 @@ func _physics_process(_delta):
 	if !self.death:
 		_sightCheck()
 		update()
+	var relative_path
+	var relative_path_angle
+	
+	if path_to_destination:
+		relative_path = path_to_destination[0] - position
+		relative_path_angle = rad2deg(relative_path.angle_to_point(Vector2(0,0)))
+		get_node("AnimatedSpriteLegs").rotation_degrees = relative_path_angle - rotation_degrees
 
 
 func _search(delta):
-	var path_to_destination = _moveAlongPath(delta, destination)
+	path_to_destination = _moveAlongPath(delta, destination)
 	
 	if path_to_destination.size() == 0:
 		player_seen = false
@@ -100,34 +122,34 @@ func _search(delta):
 			state = Patrol
 		else:
 			state = Return
-	
+
 
 func _returnToStartingPoint(delta):
-	var path_to_starting_position = _moveAlongPath(delta, starting_position)
+	path_to_destination = _moveAlongPath(delta, starting_position)
 		
-	if path_to_starting_position.size() == 0:
+	if path_to_destination.size() == 0:
 		#clean path_follow
 		path_follow.set_offset(0)
 		state = Patrol
-		
+
 
 func _moveAlongPath(delta, destination):
-	var path_to_destination = map_navigation.get_simple_path(get_global_position(), destination)
+	var output = map_navigation.get_simple_path(get_global_position(), destination)
 	var starting_point = get_global_position()
 	var move_distance = speed * delta
 	
-	for point in range(path_to_destination.size()):
-		var distance_to_next_point = starting_point.distance_to(path_to_destination[0])
+	for point in range(output.size()):
+		var distance_to_next_point = starting_point.distance_to(output[0])
 		if move_distance <= distance_to_next_point and move_distance >= 0.0:
-			position = starting_point.linear_interpolate(path_to_destination[0], move_distance / distance_to_next_point)
+			position = starting_point.linear_interpolate(output[0], move_distance / distance_to_next_point)
 			rotation = (player.position - position).angle()
 			break
 		move_distance -= distance_to_next_point
-		starting_point = path_to_destination[0]
-		path_to_destination.remove(0)
-	return path_to_destination
-	
-	
+		starting_point = output[0]
+		output.remove(0)
+	return output
+
+
 func _sightCheck():
 	if player_in_range:
 		var space_state = get_world_2d().direct_space_state
@@ -150,7 +172,7 @@ func _sightCheck():
 						state = Patrol
 					else:
 						state = Return
-					
+
 
 func animationHit(damage):
 	blood_one.visible = true
@@ -165,13 +187,14 @@ func animationHit(damage):
 	blood_one.frame = 0
 	blood_two.frame = 0
 	.animationHit(damage)
-	
+
 
 func onDeath():
 	get_node("Visibility/CollisionShape2D").set_deferred("desabled", true)
 	get_node("Collision").set_deferred("desabled", true)
 	get_node(".").collision_mask = false
 	get_node("Sprite").visible = false
+	get_node("AnimatedSpriteLegs").visible = false
 	weapon_instance.visible = false
 	blood_death.visible = true
 	blood_death.play("blodedeath")
@@ -185,7 +208,7 @@ func onDeath():
 func _on_Visibility_body_entered(_body):
 	if _body == player:
 		player_in_range = true
-			
+
 
 func _on_Visibility_body_exited(_body):
 	if _body == player:
