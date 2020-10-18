@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="Polygon2D" type="Polygon2D"]
+z_index = 3
+color = Color( 0.709804, 0.733333, 0.74902, 1 )
+polygon = PoolVector2Array( 0, 0, 1584, 0, 1584, 900, 1242, 1152, 0, 1152 )
+
+[node name="Balcone" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Balcone"]
+z_index = 3
+polygon = PoolVector2Array( 0, 0, 0, 1152, 1242, 1152, 1584, 900, 1584, 0 )

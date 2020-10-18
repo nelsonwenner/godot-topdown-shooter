@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://arts/player/hp/health_bar.jpg" type="Texture" id=1]
+[ext_resource path="res://arts/player/hp/health_bar_empty.jpg" type="Texture" id=2]
+
+[node name="HealthBar" type="TextureProgress"]
+modulate = Color( 1, 1, 1, 0.584314 )
+margin_left = 25.0
+margin_top = 18.0
+margin_right = 502.0
+margin_bottom = 67.0
+rect_scale = Vector2( 0.5, 0.5 )
+value = 50.0
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
