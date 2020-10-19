@@ -55,11 +55,6 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 14 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 17 ) ],
-"loop": true,
-"name": "blood2",
-"speed": 8.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 13 ), ExtResource( 15 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "blood1",
@@ -69,15 +64,15 @@ animations = [ {
 "loop": true,
 "name": "blodedeath",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "blood2",
+"speed": 8.0
 } ]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 13 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "bloodDeath",
-"speed": 8.0
-}, {
 "frames": [ ExtResource( 14 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 17 ) ],
 "loop": true,
 "name": "bloodRight",
@@ -87,12 +82,18 @@ animations = [ {
 "loop": true,
 "name": "bloodLeft",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 13 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "bloodDeath",
+"speed": 8.0
 } ]
 
 [node name="Enemy" type="KinematicBody2D" groups=[
 "Enemies",
 ]]
 scale = Vector2( 0.1, 0.1 )
+z_index = 1
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 2 )
@@ -114,7 +115,6 @@ position = Vector2( -6, 2 )
 scale = Vector2( 1.06, 1.06 )
 z_index = 3
 frames = SubResource( 2 )
-frame = 6
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]

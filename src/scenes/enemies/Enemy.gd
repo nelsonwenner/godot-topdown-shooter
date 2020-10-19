@@ -69,15 +69,16 @@ func _process(_delta):
 				get_node("AnimatedSpriteLegs").animation = 'idle'
 				get_node("AnimatedSpriteLegs").rotation_degrees = 0
 			Patrol:
-				get_node("AnimatedSpriteLegs").animation = 'run'
-				get_node("AnimatedSpriteLegs").rotation_degrees = 0
-				speed = 70
-				var position_before = position
-				path_follow.set_offset(path_follow.get_offset() + speed * _delta)
-				position = path_follow.get_global_position()
-				var relative_path = position - position_before
-				var relative_path_angle = rad2deg(relative_path.angle_to_point(Vector2(0,0)))
-				rotation_degrees = relative_path_angle
+				if path_patrol:
+					get_node("AnimatedSpriteLegs").animation = 'run'
+					get_node("AnimatedSpriteLegs").rotation_degrees = 0
+					speed = 70
+					var position_before = position
+					path_follow.set_offset(path_follow.get_offset() + speed * _delta)
+					position = path_follow.get_global_position()
+					var relative_path = position - position_before
+					var relative_path_angle = rad2deg(relative_path.angle_to_point(Vector2(0,0)))
+					rotation_degrees = relative_path_angle
 			Attack:
 				get_node("AnimatedSpriteLegs").animation = 'idle'
 				get_node("AnimatedSpriteLegs").rotation_degrees = 0
