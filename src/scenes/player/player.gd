@@ -15,9 +15,7 @@ func _ready():
 
 
 func _process(_delta):
-	if self.death: 
-		PlayerData.losers += 1
-		self.hide()
+	if self.death: return
 	
 	look_at(get_global_mouse_position())
 
@@ -64,6 +62,8 @@ func _physics_process(_delta):
 
 func onDeath():
 	self.death = true
+	self.hide()
+	PlayerData.set_loser(1)
 	.onDeath()
 
 

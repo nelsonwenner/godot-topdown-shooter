@@ -115,6 +115,7 @@ position = Vector2( -6, 2 )
 scale = Vector2( 1.06, 1.06 )
 z_index = 3
 frames = SubResource( 2 )
+frame = 1
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -135,7 +136,7 @@ scale = Vector2( 10, 10 )
 [node name="ShootWeaponTime" type="Timer" parent="."]
 
 [node name="DeadEnemyTime" type="Timer" parent="."]
-wait_time = 120.0
+wait_time = 20.0
 
 [node name="Visibility" type="Area2D" parent="."]
 position = Vector2( -20, 0 )
