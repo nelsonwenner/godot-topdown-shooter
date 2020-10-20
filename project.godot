@@ -33,6 +33,8 @@ PlayerData="*res://src/singletons/PlayerData.gd"
 window/size/width=1280
 window/size/height=720
 window/size/always_on_top=true
+mouse_cursor/custom_image="res://arts/player/crosshair.png"
+mouse_cursor/custom_image_hotspot=Vector2( 16, 16 )
 
 [input]
 

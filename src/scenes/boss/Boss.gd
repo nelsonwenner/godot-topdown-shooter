@@ -6,9 +6,6 @@ onready var weapon = preload("res://src/scenes/weapons/weapon.tscn")
 onready var positionWeapon = get_node("BossPositionWeapon")
 onready var player = get_parent().get_node("player")
 
-var vis_color = Color(.867, .91, .247, 0.1)
-var laser_color = Color(1.0, .329, .298)
-
 enum {
 	Rest,
 	Attack,
@@ -16,7 +13,7 @@ enum {
 
 var weapon_instance = null
 var player_in_range
-var max_hp = 1000
+var max_hp = 1500
 
 var hit_position
 
@@ -37,7 +34,7 @@ func init_weapon():
 	weapon_instance = weapon.instance()
 	weapon_instance.init(self,"AK47",
 		load("res://arts/weapon/gun-01.png"),
-		10,500,0,500,1,36,10
+		5,500,0,500,1,36,10
 	)
 	add_child(weapon_instance)
 	weapon_instance.position = positionWeapon.position
@@ -47,9 +44,7 @@ func init_weapon():
 
 
 func _process(_delta):
-	if self.death:
-		self.modulate = '432222'
-		return
+	if self.death: return
 	else:
 		match state:
 			Rest:
@@ -60,7 +55,6 @@ func _process(_delta):
 
 
 func _physics_process(_delta):
-	update()
 	if !self.death:
 		_sightCheck()
 
@@ -84,6 +78,8 @@ func onDeath():
 	get_node("Explode").play("explode")
 	yield(get_tree().create_timer(1), "timeout")
 	self.death = true
+	self.modulate = '432222'
+	PlayerData.set_winner(1)
 	.onDeath()
 	
 
