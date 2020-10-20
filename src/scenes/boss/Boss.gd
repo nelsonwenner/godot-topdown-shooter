@@ -13,7 +13,7 @@ enum {
 
 var weapon_instance = null
 var player_in_range
-var max_hp = 1000
+var max_hp = 1500
 
 var hit_position
 
@@ -34,7 +34,7 @@ func init_weapon():
 	weapon_instance = weapon.instance()
 	weapon_instance.init(self,"AK47",
 		load("res://arts/weapon/gun-01.png"),
-		10,500,0,500,1,36,10
+		5,500,0,500,1,36,10
 	)
 	add_child(weapon_instance)
 	weapon_instance.position = positionWeapon.position

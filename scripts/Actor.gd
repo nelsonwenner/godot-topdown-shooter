@@ -10,7 +10,6 @@ var death = false
 func onHit(damage):
 	if !death:
 		current_hp -= damage
-		print("Boss HP => ", current_hp)
 		animationHit(damage)
 		if current_hp <= 0:
 			onDeath()

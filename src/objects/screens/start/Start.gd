@@ -12,4 +12,4 @@ func _on_Timer_timeout():
 
 
 func _on_StartGame_button_up():
-	get_tree().change_scene("res://src/scenes/levels/LevelOne.tscn")
+	get_tree().change_scene("res://src/scenes/levels/World.tscn")

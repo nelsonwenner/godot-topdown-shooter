@@ -42,7 +42,6 @@ func _ready():
 func _physics_process(_delta):
 	move_and_slide(dir * SPEED)
 	if (origin - position).length() > max_distance:
-		print("Bullet Destroyed in: Distance")
 		queue_free()
 		
 	
@@ -50,7 +49,6 @@ func _on_Area_body_entered(_body):
 	var bodies = get_node("AreaBulletBody").get_overlapping_bodies()
 	for body in bodies:
 		if body.name in collisions:
-			print("Bullet Destroyed in: ", body.name)
 			if is_boss:
 				queue_free()
 			bulletImpact()
@@ -60,12 +58,11 @@ func _on_Area_body_entered(_body):
 		_body.onHit(DAMAGE)
 		bulletImpact()
 		queue_free()
-		#print("Hit! => ", owner_bullet)
+	
 	elif _body.is_in_group("Player") and owner_bullet == "Enemy":
 		_body.onHit(DAMAGE)
 		self.hide()
-		print("Hit! => ", owner_bullet)
-
+	
 
 func bulletImpact():
 	var particle = bullet_impact.instance()
